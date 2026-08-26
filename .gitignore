@@ -22,6 +22,9 @@ package-lock.json
 # macOS-specific files
 .DS_Store
 
+# internal planning docs
+TODO-legal.md
+
 # ignore .astro directory
 .astro
 .claude
