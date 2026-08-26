@@ -1,0 +1,156 @@
+---
+const features = [
+  {
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    color: '#FF8C00',
+    title: 'Instant Transfers',
+    desc: 'Send money to anyone in seconds. No waiting, no delays — just instant delivery to any FodyPay user.',
+  },
+  {
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="3" stroke="currentColor" stroke-width="1.75"/><path d="M2 10h20" stroke="currentColor" stroke-width="1.75"/></svg>`,
+    color: '#2F6FED',
+    title: 'Virtual & Physical Cards',
+    desc: 'Issue a virtual card instantly or order a physical card. Use it anywhere Visa is accepted, online or in-store.',
+  },
+  {
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>`,
+    color: '#00C896',
+    title: 'Smart Wallet',
+    desc: 'Track every transaction with beautiful charts and spending insights. Know exactly where your money goes.',
+  },
+  {
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"/></svg>`,
+    color: '#E84393',
+    title: 'Bank-grade Security',
+    desc: 'End-to-end encryption, biometric authentication, and real-time fraud alerts keep your money safe 24/7.',
+  },
+  {
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/><circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="1.75"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>`,
+    color: '#FFC837',
+    title: 'Request & Split',
+    desc: 'Request money from friends or split bills with a group. Share a link and get paid in seconds.',
+  },
+  {
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.75"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>`,
+    color: '#FF8C00',
+    title: 'Multi-currency',
+    desc: 'Hold and convert multiple currencies at real exchange rates. Travel and shop globally without hidden fees.',
+  },
+];
+---
+
+<section class="features" id="features">
+  <div class="features__inner">
+    <div class="features__header">
+      <p class="features__eyebrow">Everything you need</p>
+      <h2 class="features__title">Built for modern money</h2>
+      <p class="features__sub">
+        FodyPay packs every essential financial tool into one elegant app.
+        No hidden fees, no complexity.
+      </p>
+    </div>
+
+    <div class="features__grid">
+      {features.map(f => (
+        <article class="feature-card">
+          <div class="feature-card__icon" style={`color:${f.color};background:${f.color}18`} set:html={f.icon} />
+          <h3 class="feature-card__title">{f.title}</h3>
+          <p class="feature-card__desc">{f.desc}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .features {
+    padding: 6rem 1.5rem;
+    background: var(--surface);
+  }
+
+  .features__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .features__header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+
+  .features__eyebrow {
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 0.75rem;
+  }
+
+  .features__title {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    margin-bottom: 1rem;
+  }
+
+  .features__sub {
+    color: var(--text-secondary);
+    font-size: 1.0625rem;
+    max-width: 480px;
+    margin-inline: auto;
+  }
+
+  .features__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .feature-card {
+    background: var(--bg);
+    border: 1px solid var(--divider);
+    border-radius: 16px;
+    padding: 1.75rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .feature-card:hover {
+    border-color: var(--elevated);
+    transform: translateY(-3px);
+  }
+
+  .feature-card__icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .feature-card__title {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-card__desc {
+    color: var(--text-secondary);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+  }
+
+  @media (max-width: 900px) {
+    .features__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .features__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

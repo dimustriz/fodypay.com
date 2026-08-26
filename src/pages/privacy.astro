@@ -1,0 +1,209 @@
+---
+import Layout from '../layouts/Layout.astro';
+const updated = 'August 26, 2026';
+---
+
+<Layout
+  title="Privacy Policy &mdash; FodyPay"
+  description="FodyPay Privacy Policy &mdash; how we collect, use, and protect your personal data."
+>
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="/" class="logo">Fody<span>Pay</span></a>
+    </div>
+  </header>
+
+  <main class="legal-page">
+    <div class="container">
+      <h1>Privacy Policy</h1>
+      <p class="meta">Last updated: {updated}</p>
+
+      <section>
+        <h2>1. Who We Are</h2>
+        <p>FodyPay ("<strong>FodyPay</strong>", "<strong>we</strong>", "<strong>us</strong>", or "<strong>our</strong>") is a digital payment and cryptocurrency wallet application operated by FodyLabs LLC, a US limited liability company ("<strong>FodyLabs</strong>"). We are committed to protecting your personal information and your right to privacy.</p>
+        <p>For questions about this policy, contact us at <a href="mailto:privacy@fodypay.com">privacy@fodypay.com</a>.</p>
+      </section>
+
+      <section>
+        <h2>2. Information We Collect</h2>
+        <h3>2.1 Information You Provide</h3>
+        <ul>
+          <li><strong>Identity data</strong>: full name, date of birth, nationality, government-issued ID (for KYC verification)</li>
+          <li><strong>Contact data</strong>: email address, phone number, postal address</li>
+          <li><strong>Financial data</strong>: bank account details, payment card information (processed by Stripe; we do not store raw card numbers)</li>
+          <li><strong>Account credentials</strong>: hashed password, biometric identifiers (stored locally on device only)</li>
+          <li><strong>Profile data</strong>: profile picture, preferences, settings</li>
+        </ul>
+
+        <h3>2.2 Automatically Collected Data</h3>
+        <ul>
+          <li><strong>Device data</strong>: device model, operating system, unique device identifiers, IP address</li>
+          <li><strong>Usage data</strong>: pages visited, features used, clickstream data, session duration</li>
+          <li><strong>Transaction data</strong>: amount, recipient, timestamp, type, and status of every transaction you initiate</li>
+          <li><strong>Location data</strong>: approximate location derived from IP address (we do not collect precise GPS location unless you explicitly permit it)</li>
+        </ul>
+
+        <h3>2.3 Data from Third Parties</h3>
+        <ul>
+          <li><strong>Stripe</strong>: payment processing data, fraud signals, and risk scores</li>
+          <li><strong>Bridge</strong>: stablecoin and cryptocurrency transaction data, wallet addresses, and compliance signals</li>
+          <li><strong>Identity verification providers</strong>: KYC/AML check results</li>
+          <li><strong>Financial institutions</strong>: account verification and transaction confirmations</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>3. How We Use Your Information</h2>
+        <table>
+          <thead><tr><th>Purpose</th><th>Legal Basis</th></tr></thead>
+          <tbody>
+            <tr><td>Providing and operating the FodyPay service</td><td>Contract performance</td></tr>
+            <tr><td>Processing payments and cryptocurrency transactions</td><td>Contract performance</td></tr>
+            <tr><td>Identity verification and fraud prevention (KYC/AML)</td><td>Legal obligation</td></tr>
+            <tr><td>Detecting and preventing unauthorized access or fraud</td><td>Legitimate interests</td></tr>
+            <tr><td>Complying with financial regulations and law enforcement requests</td><td>Legal obligation</td></tr>
+            <tr><td>Improving our products and services</td><td>Legitimate interests</td></tr>
+            <tr><td>Sending transactional and service notifications</td><td>Contract performance</td></tr>
+            <tr><td>Sending marketing communications (with your consent)</td><td>Consent</td></tr>
+            <tr><td>Resolving disputes and enforcing our terms</td><td>Legitimate interests</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>4. Payment Processing &mdash; Stripe</h2>
+        <p>We use <strong>Stripe, Inc.</strong> to process payments. When you add a payment method or initiate a transaction, your payment information is transmitted directly to Stripe's secure servers. FodyPay does not store your full card number, CVV, or bank credentials.</p>
+        <p>Stripe's use of your data is governed by the <a href="https://stripe.com/privacy" target="_blank" rel="noopener">Stripe Privacy Policy</a>. Stripe is certified to PCI DSS Level 1, the highest level of payment card industry compliance.</p>
+      </section>
+
+      <section>
+        <h2>5. Cryptocurrency Infrastructure &mdash; Bridge</h2>
+        <p>Cryptocurrency and stablecoin transactions are facilitated through <strong>Bridge</strong>. When you perform crypto operations, relevant transaction data (including wallet addresses and amounts) is shared with Bridge to execute and settle transactions.</p>
+        <p>Bridge's use of your data is governed by the <a href="https://www.bridge.xyz/legal/privacy" target="_blank" rel="noopener">Bridge Privacy Policy</a>. Bridge applies AML and sanctions screening to all transactions as required by applicable law.</p>
+      </section>
+
+      <section>
+        <h2>6. Sharing Your Information</h2>
+        <p>We do not sell your personal data. We share it only with:</p>
+        <ul>
+          <li><strong>Service providers</strong> acting on our behalf (payment processors, KYC providers, cloud infrastructure, analytics)</li>
+          <li><strong>Regulatory authorities</strong> when required by law (financial regulators, law enforcement, tax authorities)</li>
+          <li><strong>Business partners</strong> disclosed at the point of data collection</li>
+          <li><strong>Acquirer or successor</strong> in the event of a merger, acquisition, or asset sale</li>
+        </ul>
+        <p>All third parties are contractually bound to handle your data with equivalent levels of protection.</p>
+      </section>
+
+      <section>
+        <h2>7. International Data Transfers</h2>
+        <p>Your data may be transferred to and processed in countries outside your country of residence, including the United States and the European Economic Area. We implement appropriate safeguards (such as Standard Contractual Clauses) for such transfers in compliance with applicable data protection law.</p>
+      </section>
+
+      <section>
+        <h2>8. Data Retention</h2>
+        <p>We retain your personal data for as long as your account is active and for a minimum of <strong>5 years</strong> after account closure, as required by financial services regulations (AML, KYC record-keeping obligations). Transaction records may be retained for up to <strong>7 years</strong> to comply with tax and accounting laws.</p>
+      </section>
+
+      <section>
+        <h2>9. Your Rights</h2>
+        <p>Depending on your jurisdiction, you may have the right to:</p>
+        <ul>
+          <li><strong>Access</strong> the personal data we hold about you</li>
+          <li><strong>Rectify</strong> inaccurate or incomplete data</li>
+          <li><strong>Erase</strong> your data (subject to legal retention obligations)</li>
+          <li><strong>Restrict</strong> or object to certain processing</li>
+          <li><strong>Data portability</strong> &mdash; receive your data in a machine-readable format</li>
+          <li><strong>Withdraw consent</strong> at any time (where processing is consent-based)</li>
+          <li><strong>Lodge a complaint</strong> with your local data protection authority</li>
+        </ul>
+        <p>To exercise any right, email <a href="mailto:privacy@fodypay.com">privacy@fodypay.com</a>. We will respond within 30 days.</p>
+      </section>
+
+      <section>
+        <h2>10. California Privacy Rights (CCPA / CPRA)</h2>
+        <p>If you are a California resident, the California Consumer Privacy Act (CCPA) as amended by the California Privacy Rights Act (CPRA) grants you the following rights regarding your personal information:</p>
+        <ul>
+          <li><strong>Right to Know</strong>: Request disclosure of the categories and specific pieces of personal information we have collected about you, the sources, the business purpose, and the third parties with whom we share it.</li>
+          <li><strong>Right to Delete</strong>: Request deletion of personal information we have collected, subject to legal retention obligations (e.g., AML/KYC record-keeping).</li>
+          <li><strong>Right to Correct</strong>: Request correction of inaccurate personal information we hold about you.</li>
+          <li><strong>Right to Opt-Out of Sale or Sharing</strong>: We do <strong>not</strong> sell or share your personal information for cross-context behavioral advertising.</li>
+          <li><strong>Right to Limit Sensitive Data Use</strong>: We use sensitive personal information (government ID, financial data, biometrics) only as necessary to provide the Service and meet legal obligations.</li>
+          <li><strong>Right to Non-Discrimination</strong>: We will not discriminate against you for exercising any CCPA/CPRA rights.</li>
+        </ul>
+        <p>To submit a California privacy request, email <a href="mailto:privacy@fodypay.com">privacy@fodypay.com</a> with subject line <em>"California Privacy Request"</em>. We will respond within 45 days. You may designate an authorized agent to make requests on your behalf by providing written authorization.</p>
+      </section>
+
+      <section>
+        <h2>11. Security</h2>
+        <p>We implement industry-standard security measures including TLS encryption in transit, AES-256 encryption at rest, multi-factor authentication, regular penetration testing, and SOC 2 compliant infrastructure. No system is completely secure; in the event of a breach affecting your rights, we will notify you as required by law.</p>
+      </section>
+
+      <section>
+        <h2>12. Cookies</h2>
+        <p>Our website uses strictly necessary cookies for session management and security. We use analytics cookies (with your consent) to understand how visitors use our site. You can manage cookie preferences via your browser settings.</p>
+      </section>
+
+      <section>
+        <h2>13. Children</h2>
+        <p>FodyPay is not directed to persons under 18 years of age. We do not knowingly collect personal data from minors. If we become aware that a minor has provided us data, we will delete it promptly.</p>
+      </section>
+
+      <section>
+        <h2>14. Changes to This Policy</h2>
+        <p>We may update this policy from time to time. When we make material changes, we will notify you by email or in-app notification at least 14 days before the changes take effect. The "Last updated" date at the top of this page reflects the most recent revision.</p>
+      </section>
+
+      <section>
+        <h2>15. Contact Us</h2>
+        <p>FodyLabs LLC &mdash; operating FodyPay<br />
+        Email: <a href="mailto:privacy@fodypay.com">privacy@fodypay.com</a><br />
+        For Stripe-related data inquiries: <a href="https://stripe.com/privacy" target="_blank" rel="noopener">stripe.com/privacy</a><br />
+        For Bridge-related data inquiries: <a href="https://www.bridge.xyz/legal/privacy" target="_blank" rel="noopener">bridge.xyz/legal/privacy</a></p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 FodyPay. <a href="/">Home</a> &middot; <a href="/privacy">Privacy Policy</a> &middot; <a href="/terms">Terms of Service</a></p>
+    </div>
+  </footer>
+</Layout>
+
+<style>
+  :root {
+    --orange: #ff8c00;
+    --bg: #faf9f7;
+    --text: #111827;
+    --text-muted: #6b7280;
+    --border: #e5e3de;
+    --max: 800px;
+  }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; }
+  .container { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+  .nav { border-bottom: 1px solid var(--border); }
+  .nav-inner { max-width: var(--max); margin: 0 auto; padding: 0 24px; height: 60px; display: flex; align-items: center; }
+  .logo { font-size: 1.2rem; font-weight: 800; color: var(--text); }
+  .logo span { color: var(--orange); }
+
+  .legal-page { padding: 60px 0 80px; }
+  h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 8px; }
+  .meta { color: var(--text-muted); font-size: 0.875rem; margin-bottom: 40px; }
+  section { margin-bottom: 40px; }
+  h2 { font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; margin-top: 32px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 1rem; font-weight: 600; margin: 16px 0 8px; }
+  p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 12px; }
+  p strong { color: var(--text); }
+  a { color: var(--orange); text-decoration: underline; }
+  ul { padding-left: 20px; margin-bottom: 12px; }
+  li { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 6px; }
+  li strong { color: var(--text); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin-bottom: 12px; }
+  th { background: var(--border); padding: 10px 14px; text-align: left; font-weight: 600; }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text-muted); }
+
+  .footer { padding: 24px 0; border-top: 1px solid var(--border); }
+  .footer p { font-size: 0.8rem; color: var(--text-muted); text-align: center; }
+  .footer a { color: var(--text-muted); }
+</style>

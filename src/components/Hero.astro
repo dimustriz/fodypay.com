@@ -1,0 +1,487 @@
+---
+---
+
+<section class="hero" id="hero">
+  <div class="hero__glow" aria-hidden="true"></div>
+  <div class="hero__inner">
+    <div class="hero__content">
+      <div class="hero__badge">
+        <span class="hero__badge-dot"></span>
+        Available on iOS & Android
+      </div>
+
+      <h1 class="hero__heading">
+        Money moves<br />
+        <span class="hero__heading-accent">at your speed</span>
+      </h1>
+
+      <p class="hero__sub">
+        Send, receive, and manage your money with FodyPay. Virtual and physical cards,
+        instant transfers, and a beautiful wallet — all in one app.
+      </p>
+
+      <div class="hero__cta">
+        <a href="#download" class="btn btn--primary btn--lg">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M10 2v10M10 12l-3-3M10 12l3-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M3 14v1a2 2 0 002 2h10a2 2 0 002-2v-1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          Download Free
+        </a>
+        <a href="#how-it-works" class="btn btn--ghost btn--lg">
+          See how it works
+        </a>
+      </div>
+
+      <div class="hero__stats">
+        <div class="hero__stat">
+          <strong>50K+</strong>
+          <span>Active users</span>
+        </div>
+        <div class="hero__stat-divider"></div>
+        <div class="hero__stat">
+          <strong>$2M+</strong>
+          <span>Transferred</span>
+        </div>
+        <div class="hero__stat-divider"></div>
+        <div class="hero__stat">
+          <strong>4.8?</strong>
+          <span>App rating</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__visual">
+      <div class="hero__phone">
+        <div class="hero__screen">
+          <!-- Mock app UI -->
+          <div class="mock-header">
+            <div class="mock-avatar"></div>
+            <div>
+              <div class="mock-text mock-text--sm mock-text--muted">Good morning</div>
+              <div class="mock-text mock-text--bold">Alex Johnson</div>
+            </div>
+            <div class="mock-notif"></div>
+          </div>
+
+          <div class="mock-card">
+            <div class="mock-text mock-text--sm mock-text--muted">Total Balance</div>
+            <div class="mock-balance">$12,480<span>.50</span></div>
+            <div class="mock-card-row">
+              <span>**** **** **** 4291</span>
+              <span>VISA</span>
+            </div>
+          </div>
+
+          <div class="mock-actions">
+            <div class="mock-action">
+              <div class="mock-action-icon mock-action-icon--send"></div>
+              <span>Send</span>
+            </div>
+            <div class="mock-action">
+              <div class="mock-action-icon mock-action-icon--receive"></div>
+              <span>Receive</span>
+            </div>
+            <div class="mock-action">
+              <div class="mock-action-icon mock-action-icon--cards"></div>
+              <span>Cards</span>
+            </div>
+            <div class="mock-action">
+              <div class="mock-action-icon mock-action-icon--wallet"></div>
+              <span>Wallet</span>
+            </div>
+          </div>
+
+          <div class="mock-section-title">Recent</div>
+          <div class="mock-tx">
+            <div class="mock-tx-icon" style="background:#00C89620">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 12V2M7 2l-3 3M7 2l3 3" stroke="#00C896" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="mock-tx-info">
+              <div class="mock-text mock-text--sm">From Sarah</div>
+              <div class="mock-text mock-text--xs mock-text--muted">2 min ago</div>
+            </div>
+            <div class="mock-text mock-text--sm" style="color:#00C896">+$250.00</div>
+          </div>
+          <div class="mock-tx">
+            <div class="mock-tx-icon" style="background:#FF3B3020">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2v10M7 12l-3-3M7 12l3-3" stroke="#FF3B30" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="mock-tx-info">
+              <div class="mock-text mock-text--sm">Netflix</div>
+              <div class="mock-text mock-text--xs mock-text--muted">Yesterday</div>
+            </div>
+            <div class="mock-text mock-text--sm" style="color:#FF3B30">-$15.99</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__float hero__float--1">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M9 1l2.09 5.26L17 7.27l-4 3.9.94 5.5L9 14l-4.94 2.67.94-5.5-4-3.9 5.91-1.01L9 1z" fill="#FFC837"/></svg>
+        <span>Instant transfer</span>
+      </div>
+      <div class="hero__float hero__float--2">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13 6c0 4-5 7-5 7S3 10 3 6a5 5 0 1110 0z" fill="#FF8C00"/><circle cx="8" cy="6" r="1.5" fill="#fff"/></svg>
+        <span>Zero fees</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding: 5rem 1.5rem 6rem;
+  }
+
+  .hero__glow {
+    position: absolute;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    height: 600px;
+    background: radial-gradient(ellipse at center, rgba(255,140,0,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255,140,0,0.1);
+    border: 1px solid rgba(255,140,0,0.25);
+    color: var(--primary-light);
+    padding: 0.375rem 0.875rem;
+    border-radius: 100px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero__badge-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--primary);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.4); }
+  }
+
+  .hero__heading {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero__heading-accent {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero__sub {
+    color: var(--text-secondary);
+    font-size: 1.0625rem;
+    max-width: 480px;
+    margin-bottom: 2rem;
+  }
+
+  .hero__cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero__stats {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .hero__stat strong {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .hero__stat span {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+  }
+
+  .hero__stat-divider {
+    width: 1px;
+    height: 36px;
+    background: var(--divider);
+  }
+
+  /* Phone mock */
+  .hero__visual {
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+
+  .hero__phone {
+    width: 280px;
+    background: var(--surface);
+    border-radius: 32px;
+    border: 1.5px solid var(--elevated);
+    padding: 24px 20px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04);
+  }
+
+  .hero__screen {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .mock-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .mock-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    flex-shrink: 0;
+  }
+
+  .mock-notif {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--elevated);
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .mock-text {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .mock-text--bold { font-weight: 700; font-size: 0.9375rem; }
+  .mock-text--sm { font-size: 0.8125rem; }
+  .mock-text--xs { font-size: 0.6875rem; }
+  .mock-text--muted { color: var(--text-secondary); font-weight: 400; }
+
+  .mock-card {
+    background: linear-gradient(135deg, #FF9500, #DD4400);
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .mock-card .mock-text--sm { color: rgba(255,255,255,0.7); }
+
+  .mock-balance {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+
+  .mock-balance span {
+    font-size: 1rem;
+    opacity: 0.7;
+  }
+
+  .mock-card-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.6875rem;
+    color: rgba(255,255,255,0.6);
+    margin-top: 6px;
+    font-weight: 500;
+  }
+
+  .mock-actions {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  .mock-action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.625rem;
+    color: var(--text-secondary);
+  }
+
+  .mock-action-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--elevated);
+  }
+
+  .mock-action-icon--send { background: rgba(255,140,0,0.15); }
+  .mock-action-icon--receive { background: rgba(0,200,150,0.15); }
+  .mock-action-icon--cards { background: rgba(46,111,237,0.15); }
+  .mock-action-icon--wallet { background: rgba(255,59,48,0.15); }
+
+  .mock-section-title {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  .mock-tx {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mock-tx-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .mock-tx-info {
+    flex: 1;
+  }
+
+  /* Floating badges */
+  .hero__float {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--surface);
+    border: 1px solid var(--elevated);
+    border-radius: 100px;
+    padding: 0.5rem 0.875rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    animation: float 4s ease-in-out infinite;
+  }
+
+  .hero__float--1 {
+    top: 10%;
+    right: -20px;
+    animation-delay: 0s;
+  }
+
+  .hero__float--2 {
+    bottom: 15%;
+    left: -20px;
+    animation-delay: 2s;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    border: none;
+    transition: opacity 0.2s, transform 0.15s;
+    cursor: pointer;
+  }
+
+  .btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+
+  .btn--primary {
+    background: var(--primary);
+    color: #fff;
+  }
+
+  .btn--ghost {
+    background: var(--elevated);
+    color: var(--text);
+  }
+
+  .btn--lg {
+    padding: 0.875rem 1.75rem;
+    font-size: 1rem;
+    border-radius: 12px;
+  }
+
+  @media (max-width: 900px) {
+    .hero__inner {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .hero__badge {
+      display: inline-flex;
+    }
+
+    .hero__sub {
+      margin-inline: auto;
+    }
+
+    .hero__cta {
+      justify-content: center;
+    }
+
+    .hero__stats {
+      justify-content: center;
+    }
+
+    .hero__visual {
+      order: -1;
+    }
+
+    .hero__float--1 { right: 0; }
+    .hero__float--2 { left: 0; }
+  }
+
+  @media (max-width: 480px) {
+    .hero {
+      padding: 3rem 1rem 4rem;
+    }
+
+    .hero__phone {
+      width: 240px;
+    }
+  }
+</style>

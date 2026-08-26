@@ -1,0 +1,203 @@
+---
+---
+
+<section class="security" id="security">
+  <div class="security__inner">
+    <div class="security__content">
+      <p class="security__eyebrow">Your safety, first</p>
+      <h2 class="security__title">Security you can trust</h2>
+      <p class="security__sub">
+        Every transaction is protected by multiple layers of security. We meet the
+        same standards as leading banks — so your money is always safe.
+      </p>
+
+      <ul class="security__list">
+        <li>
+          <div class="security__check" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3 3 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span>256-bit AES end-to-end encryption</span>
+        </li>
+        <li>
+          <div class="security__check" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3 3 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span>Biometric authentication (Face ID / Fingerprint)</span>
+        </li>
+        <li>
+          <div class="security__check" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3 3 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span>Real-time fraud detection & instant alerts</span>
+        </li>
+        <li>
+          <div class="security__check" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3 3 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span>PCI-DSS Level 1 compliant card processing</span>
+        </li>
+        <li>
+          <div class="security__check" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3 3 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span>Instant card freeze / unfreeze from the app</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="security__visual" aria-hidden="true">
+      <div class="security__shield">
+        <svg width="80" height="96" viewBox="0 0 80 96" fill="none">
+          <path d="M40 4L8 16v24c0 22.1 13.7 42.8 32 52 18.3-9.2 32-29.9 32-52V16L40 4z" fill="rgba(255,140,0,0.08)" stroke="rgba(255,140,0,0.4)" stroke-width="1.5"/>
+          <path d="M27 48l8 8 18-18" stroke="#FF8C00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="security__shield-label">Protected</div>
+      </div>
+
+      <div class="security__badge security__badge--1">
+        <div class="security__badge-icon" style="color:#00C896">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5L2 4v5c0 4.1 2.6 7.9 6 9.5 3.4-1.6 6-5.4 6-9.5V4L8 1.5z" stroke="currentColor" stroke-width="1.5"/><path d="M5 8l2.3 2.3 3.7-3.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span>SSL Secured</span>
+      </div>
+
+      <div class="security__badge security__badge--2">
+        <div class="security__badge-icon" style="color:#2F6FED">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="3" y="7" width="10" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M5 7V5a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <span>PCI Compliant</span>
+      </div>
+
+      <div class="security__badge security__badge--3">
+        <div class="security__badge-icon" style="color:#FFC837">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 5v4l2.5 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span>24/7 Monitoring</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .security {
+    padding: 6rem 1.5rem;
+    background: var(--surface);
+  }
+
+  .security__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .security__eyebrow {
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 0.75rem;
+  }
+
+  .security__title {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    margin-bottom: 1rem;
+  }
+
+  .security__sub {
+    color: var(--text-secondary);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    max-width: 440px;
+  }
+
+  .security__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+  }
+
+  .security__list li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+  }
+
+  .security__check {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    background: rgba(0,200,150,0.12);
+    color: var(--success);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* Visual */
+  .security__visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    min-height: 320px;
+  }
+
+  .security__shield {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .security__shield-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--primary);
+    letter-spacing: 0.04em;
+  }
+
+  .security__badge {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--bg);
+    border: 1px solid var(--divider);
+    border-radius: 100px;
+    padding: 0.5rem 0.875rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    white-space: nowrap;
+  }
+
+  .security__badge--1 { top: 10%; right: 5%; }
+  .security__badge--2 { bottom: 20%; right: 10%; }
+  .security__badge--3 { bottom: 5%; left: 5%; }
+
+  .security__badge-icon {
+    display: flex;
+  }
+
+  @media (max-width: 768px) {
+    .security__inner {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .security__visual {
+      min-height: 240px;
+    }
+  }
+</style>

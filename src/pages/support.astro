@@ -1,0 +1,146 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Support &mdash; FodyPay"
+  description="Get help with FodyPay &mdash; contact us, find answers to common questions, and report issues."
+>
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="/" class="logo">Fody<span>Pay</span></a>
+    </div>
+  </header>
+
+  <main class="support-page">
+    <div class="container">
+      <h1>Support</h1>
+      <p class="subtitle">We&rsquo;re here to help. Reach us by email and we&rsquo;ll get back to you within one business day.</p>
+
+      <div class="contact-grid">
+        <a href="mailto:support@fodypay.com" class="contact-card">
+          <div class="contact-icon">&#9993;</div>
+          <div class="contact-label">General Support</div>
+          <div class="contact-value">support@fodypay.com</div>
+        </a>
+        <a href="mailto:security@fodypay.com" class="contact-card">
+          <div class="contact-icon">&#128274;</div>
+          <div class="contact-label">Security &amp; Fraud</div>
+          <div class="contact-value">security@fodypay.com</div>
+        </a>
+        <a href="mailto:legal@fodypay.com" class="contact-card">
+          <div class="contact-icon">&#128196;</div>
+          <div class="contact-label">Legal &amp; Compliance</div>
+          <div class="contact-value">legal@fodypay.com</div>
+        </a>
+      </div>
+
+      <section>
+        <h2>Frequently Asked Questions</h2>
+
+        <div class="faq">
+          <div class="faq-item">
+            <h3>When will FodyPay launch?</h3>
+            <p>FodyPay is currently in development. Join the waitlist on our <a href="/">homepage</a> and you&rsquo;ll be among the first to know when we open access.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>What countries will FodyPay support?</h3>
+            <p>FodyPay is designed for global use &mdash; we&rsquo;re targeting support for 150+ countries at launch. Specific availability will depend on local regulatory requirements.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Who issues the FodyPay virtual card?</h3>
+            <p>Virtual cards are issued by <strong>Celtic Bank, Member FDIC</strong>, through Stripe&rsquo;s card-issuing program. FodyPay is a technology platform, not a bank.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>How do I request a refund?</h3>
+            <p>Email <a href="mailto:support@fodypay.com">support@fodypay.com</a> within 14 days of the transaction in question. Include your account email and a description of the issue. See our <a href="/terms#refunds">Terms of Service</a> for the full refund policy.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>How do I report a security issue or unauthorized transaction?</h3>
+            <p>Email <a href="mailto:security@fodypay.com">security@fodypay.com</a> immediately. For suspected account compromise, include your account email and a description of the activity. We treat all security reports as high priority.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>How do I close my account or request data deletion?</h3>
+            <p>Email <a href="mailto:support@fodypay.com">support@fodypay.com</a> with the subject line <em>&ldquo;Account Closure Request&rdquo;</em> or <em>&ldquo;Data Deletion Request&rdquo;</em>. See our <a href="/privacy">Privacy Policy</a> for details on data retention obligations.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>I have a legal or compliance question.</h3>
+            <p>Email <a href="mailto:legal@fodypay.com">legal@fodypay.com</a>. For law enforcement requests, please include your jurisdiction, the relevant legal authority, and contact information for your agency.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="legal-links">
+        <p>Also see: <a href="/privacy">Privacy Policy</a> &middot; <a href="/terms">Terms of Service</a></p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 FodyPay. <a href="/">Home</a> &middot; <a href="/privacy">Privacy Policy</a> &middot; <a href="/terms">Terms of Service</a></p>
+    </div>
+  </footer>
+</Layout>
+
+<style>
+  :root {
+    --orange: #ff8c00;
+    --bg: #faf9f7;
+    --text: #111827;
+    --text-muted: #6b7280;
+    --border: #e5e3de;
+    --max: 800px;
+  }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; }
+  .container { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+  .nav { border-bottom: 1px solid var(--border); }
+  .nav-inner { max-width: var(--max); margin: 0 auto; padding: 0 24px; height: 60px; display: flex; align-items: center; }
+  .logo { font-size: 1.2rem; font-weight: 800; color: var(--text); }
+  .logo span { color: var(--orange); }
+
+  .support-page { padding: 60px 0 80px; }
+  h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 8px; }
+  .subtitle { font-size: 1rem; color: var(--text-muted); margin-bottom: 40px; line-height: 1.6; }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 56px;
+  }
+  .contact-card {
+    background: #fff; border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px 20px; text-decoration: none; color: var(--text);
+    transition: border-color 0.15s, box-shadow 0.15s;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .contact-card:hover { border-color: var(--orange); box-shadow: 0 0 0 3px rgba(255,140,0,0.1); }
+  .contact-icon { font-size: 1.5rem; }
+  .contact-label { font-size: 0.75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--text-muted); }
+  .contact-value { font-size: 0.875rem; color: var(--orange); font-weight: 500; }
+
+  section { margin-bottom: 40px; }
+  h2 { font-size: 1.25rem; font-weight: 700; margin-bottom: 24px; margin-top: 0; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 0.95rem; font-weight: 700; margin: 0 0 6px; color: var(--text); }
+  p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.75; margin: 0; }
+  a { color: var(--orange); text-decoration: underline; }
+
+  .faq { display: flex; flex-direction: column; gap: 28px; }
+  .faq-item { border-left: 3px solid var(--border); padding-left: 16px; }
+  .faq-item:hover { border-color: var(--orange); }
+
+  .legal-links { text-align: center; }
+  .legal-links p { font-size: 0.85rem; }
+
+  .footer { padding: 24px 0; border-top: 1px solid var(--border); margin-top: 20px; }
+  .footer p { font-size: 0.8rem; color: var(--text-muted); text-align: center; }
+  .footer a { color: var(--text-muted); }
+</style>

@@ -1,0 +1,169 @@
+---
+const steps = [
+  {
+    number: '01',
+    title: 'Create your account',
+    desc: 'Sign up in under two minutes. Just your email and a quick identity check — no paperwork, no branch visits.',
+  },
+  {
+    number: '02',
+    title: 'Add money',
+    desc: 'Top up with a debit card, bank transfer, or from another wallet. Your balance is ready to use immediately.',
+  },
+  {
+    number: '03',
+    title: 'Send or receive',
+    desc: 'Enter a username, phone number, or scan a QR code. Tap send — done. The recipient gets it instantly.',
+  },
+  {
+    number: '04',
+    title: 'Spend anywhere',
+    desc: 'Use your FodyPay virtual card for online purchases or tap with Apple/Google Pay at millions of locations.',
+  },
+];
+---
+
+<section class="hiw" id="how-it-works">
+  <div class="hiw__inner">
+    <div class="hiw__header">
+      <p class="hiw__eyebrow">Simple by design</p>
+      <h2 class="hiw__title">Up and running in minutes</h2>
+      <p class="hiw__sub">
+        We removed every unnecessary step so you can focus on what matters — your money.
+      </p>
+    </div>
+
+    <div class="hiw__steps">
+      {steps.map((step, i) => (
+        <div class="hiw__step">
+          <div class="hiw__step-num">{step.number}</div>
+          <div class="hiw__step-body">
+            <h3 class="hiw__step-title">{step.title}</h3>
+            <p class="hiw__step-desc">{step.desc}</p>
+          </div>
+          {i < steps.length - 1 && (
+            <div class="hiw__connector" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .hiw {
+    padding: 6rem 1.5rem;
+  }
+
+  .hiw__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hiw__header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+
+  .hiw__eyebrow {
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 0.75rem;
+  }
+
+  .hiw__title {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    margin-bottom: 1rem;
+  }
+
+  .hiw__sub {
+    color: var(--text-secondary);
+    font-size: 1.0625rem;
+    max-width: 440px;
+    margin-inline: auto;
+  }
+
+  .hiw__steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    position: relative;
+  }
+
+  .hiw__step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 1.5rem;
+    position: relative;
+  }
+
+  .hiw__step-num {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: rgba(255,140,0,0.12);
+    border: 1.5px solid rgba(255,140,0,0.3);
+    color: var(--primary);
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  .hiw__step-title {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .hiw__step-desc {
+    color: var(--text-secondary);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+  }
+
+  .hiw__connector {
+    position: absolute;
+    top: 16px;
+    right: -12px;
+    color: var(--text-tertiary);
+    z-index: 1;
+  }
+
+  @media (max-width: 900px) {
+    .hiw__steps {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.5rem 0;
+    }
+
+    .hiw__connector:nth-child(2) {
+      display: none;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .hiw__steps {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .hiw__connector {
+      display: none;
+    }
+  }
+</style>
