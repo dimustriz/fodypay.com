@@ -17,6 +17,13 @@ const currentLangName = langNames[lang];
       <a href={langPath(lang, '#how-it-works')}>{t('nav.how')}</a>
       <a href="/privacy">{t('nav.privacy')}</a>
       <a href="/terms">{t('nav.terms')}</a>
+      <div class="nav-lang-mobile">
+        {langs.map(l => (
+          <a href={langPath(l)} class:list={[{ 'active': l === lang }]}>
+            {langNames[l]}
+          </a>
+        ))}
+      </div>
     </nav>
 
     <div class="nav-right">
@@ -175,7 +182,7 @@ const currentLangName = langNames[lang];
   </div>
 </footer>
 
-<style>
+<style is:global>
   /* ===== CSS Variables ===== */
   :root {
     --orange: #ff8c00;
@@ -268,6 +275,9 @@ const currentLangName = langNames[lang];
   [data-theme="dark"] .icon-sun { display: none; }
   [data-theme="dark"] .icon-moon { display: inline; }
 
+  /* Lang section inside hamburger menu - hidden on desktop */
+  .nav-lang-mobile { display: none; }
+
   /* Hamburger */
   .burger {
     display: none; flex-direction: column; justify-content: space-between;
@@ -293,9 +303,20 @@ const currentLangName = langNames[lang];
       padding: 16px 20px; flex-direction: column; gap: 0;
     }
     .nav-links.open { display: flex; }
-    .nav-links a { padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 1rem; }
-    .nav-links a:last-child { border-bottom: none; }
+    .nav-links > a { padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 1rem; }
     .burger { display: flex; }
+    /* hide lang dropdown from header; show inline language list inside hamburger */
+    .lang-switcher { display: none; }
+    .nav-lang-mobile {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      padding-top: 14px; margin-top: 4px;
+      border-top: 1px solid var(--border);
+    }
+    .nav-lang-mobile a {
+      padding: 6px 12px; border-radius: 8px; font-size: 0.82rem; font-weight: 500;
+      border: 1px solid var(--border); color: var(--text-muted);
+    }
+    .nav-lang-mobile a.active { color: var(--orange); border-color: var(--orange); font-weight: 600; }
   }
   @media (min-width: 768px) {
     .nav-cta { display: inline-flex; }
