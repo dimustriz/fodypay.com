@@ -27,11 +27,20 @@ jobs:
       - name: Build site
         run: pnpm build
 
-      # Pushes dist/ contents to the `dist` branch — Hostinger pulls from there
+      # Pushes dist/ contents to the `dist` branch using incremental commits (no force push)
       - name: Push built files to dist branch
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: dist
-          publish_dir: ./dist
+        run: |
+          git config user.email "github-actions@github.com"
+          git config user.name "github-actions"
+          git fetch origin
+          if git show-ref --verify --quiet refs/remotes/origin/dist; then
+            git worktree add /tmp/gh-pages origin/dist
+          else
+            git worktree add --orphan -b dist /tmp/gh-pages
+          fi
+          rsync -a --delete --exclude='.git' dist/ /tmp/gh-pages/
+          cd /tmp/gh-pages
+          git add -A
+          git diff --cached --quiet || git commit -m "deploy"
+          git push origin dist
 
