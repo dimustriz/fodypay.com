@@ -77,7 +77,8 @@ const currentLangName = langNames[lang];
         <div class="quiz-progress">
           <span class="qp-step active">1</span><span class="qp-line"></span>
           <span class="qp-step">2</span><span class="qp-line"></span>
-          <span class="qp-step">3</span>
+          <span class="qp-step">3</span><span class="qp-line"></span>
+          <span class="qp-step">4</span>
         </div>
         <div class="quiz-panel" data-panel="1">
           <p class="quiz-q">{t('quiz.q1')}</p>
@@ -104,6 +105,17 @@ const currentLangName = langNames[lang];
             <button class="quiz-opt">{t('quiz.q3.a1')}</button>
             <button class="quiz-opt">{t('quiz.q3.a2')}</button>
             <button class="quiz-opt">{t('quiz.q3.a3')}</button>
+          </div>
+        </div>
+        <div class="quiz-panel hidden" data-panel="4">
+          <p class="quiz-q">{t('quiz.q4')}</p>
+          <div class="quiz-opts">
+            <button class="quiz-opt">{t('quiz.q4.a1')}</button>
+            <button class="quiz-opt">{t('quiz.q4.a2')}</button>
+            <button class="quiz-opt">{t('quiz.q4.a3')}</button>
+            <button class="quiz-opt">{t('quiz.q4.a4')}</button>
+            <button class="quiz-opt">{t('quiz.q4.a5')}</button>
+            <button class="quiz-opt">{t('quiz.q4.a6')}</button>
           </div>
         </div>
         <div class="quiz-panel hidden" data-panel="done">
@@ -616,11 +628,11 @@ const currentLangName = langNames[lang];
       const btn = (e.target as HTMLElement).closest('.quiz-opt') as HTMLButtonElement | null;
       if (!btn) return;
       btn.classList.add('selected');
-      const nextPanel = step < 3 ? String(step + 1) : 'done';
+      const nextPanel = step < 4 ? String(step + 1) : 'done';
       setTimeout(() => {
         (quiz.querySelector(`[data-panel="${step}"]`) as HTMLElement)?.classList.add('hidden');
         (quiz.querySelector(`[data-panel="${nextPanel}"]`) as HTMLElement)?.classList.remove('hidden');
-        if (step < 3) {
+        if (step < 4) {
           quiz.querySelectorAll('.qp-step')[step]?.classList.add('active');
           step++;
         } else {
@@ -636,21 +648,5 @@ const currentLangName = langNames[lang];
     });
   }
 
-  // FOMO counter slow drift
-  const fomoEl = document.querySelector('.fomo-n') as HTMLElement;
-  if (fomoEl) {
-    let n = parseInt(fomoEl.textContent ?? '384');
-    const drift = () => {
-      const wait = 25000 + Math.random() * 35000;
-      setTimeout(() => {
-        if (n >= 499) return;
-        n++;
-        fomoEl.textContent = String(n);
-        const fill = document.querySelector('.fomo-fill') as HTMLElement;
-        if (fill) fill.style.width = `${(n / 500) * 100}%`;
-        drift();
-      }, wait);
-    };
-    drift();
-  }
+
 </script>
