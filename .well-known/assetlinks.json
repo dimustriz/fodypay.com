@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.fodypay.app",
+      "sha256_cert_fingerprints": [
+        "68:37:64:66:94:D8:4B:5A:6F:77:26:60:2C:DF:3F:FD:51:A8:9A:ED:A9:00:A5:E8:D4:B7:1F:71:D8:9B:3C:7F"
+      ]
+    }
+  }
+]
