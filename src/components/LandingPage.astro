@@ -265,10 +265,10 @@ const currentLangName = langNames[lang];
     background: none; border: 1px solid var(--border); border-radius: 8px;
     width: 36px; height: 36px; cursor: pointer; font-size: 1.1rem;
     display: flex; align-items: center; justify-content: center;
-    color: var(--text-muted); transition: border-color .2s, color .2s;
+    color: var(--text); transition: border-color .2s, color .2s;
     flex-shrink: 0;
   }
-  .theme-toggle:hover { color: var(--text); border-color: var(--text-muted); }
+  .theme-toggle:hover { color: var(--orange); border-color: var(--orange); }
   .icon-moon { display: none; }
   [data-theme="dark"] .icon-sun { display: none; }
   [data-theme="dark"] .icon-moon { display: inline; }
@@ -280,11 +280,11 @@ const currentLangName = langNames[lang];
   .burger {
     display: none; flex-direction: column; justify-content: space-between;
     width: 36px; height: 36px; padding: 8px;
-    background: none; border: 1px solid var(--border); border-radius: 8px;
+    background: none; border: 1px solid var(--text); border-radius: 8px;
     cursor: pointer; flex-shrink: 0;
   }
   .burger span {
-    display: block; height: 2px; background: var(--text-muted);
+    display: block; height: 2px; background: var(--text);
     border-radius: 2px; transition: transform .25s, opacity .25s;
   }
   .burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
