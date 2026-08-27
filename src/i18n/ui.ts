@@ -533,7 +533,7 @@ export const ui: Record<Lang, Record<string, string>> = {
     'hero.h1': 'Disponible dans votre pays\u00a0?',
     'hero.h1accent': 'D\u00e9couvrez-le en 30 secondes.',
     'hero.sub': 'V\u00e9rifiez si FodyPay est disponible dans votre r\u00e9gion \u2014 et s\u00e9curisez votre acc\u00e8s anticip\u00e9.',
-    'hero.bonus': 'V\u00e9rification gratuite de disponibilit\u00e9',,
+    'hero.bonus': 'V\u00e9rification gratuite de disponibilit\u00e9',
     'hero.proof1': "Fonctionne avec n'importe quelle banque",
     'hero.proof2': 'Accept\u00e9e dans 150+ pays',
     'hero.proof3': 'Pr\u00eate en 2 minutes',
