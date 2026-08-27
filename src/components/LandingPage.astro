@@ -61,7 +61,7 @@ const currentLangName = langNames[lang];
     <div class="hero-content">
       <span class="badge">{t('hero.badge')}</span>
       <h1>{t('hero.h1')}<br><span class="h1-accent">{t('hero.h1accent')}</span></h1>
-      <div class="hero-bonus">&#127873; {t('hero.bonus')}</div>
+      <div class="hero-bonus">&#128205; {t('hero.bonus')}</div>
       <div class="hero-proof">
         <span>{t('hero.proof1')}</span>
         <span class="dot">&middot;</span>
@@ -70,8 +70,8 @@ const currentLangName = langNames[lang];
         <span>{t('hero.proof3')}</span>
       </div>
       <div class="fomo-counter">
-        <div class="fomo-bar"><div class="fomo-fill" style="width:76.8%"></div></div>
-        <p class="fomo-text"><strong class="fomo-n">384</strong>&nbsp;{t('counter.label')}</p>
+        <div class="fomo-bar"><div class="fomo-fill" style="width:30.2%"></div></div>
+        <p class="fomo-text"><strong class="fomo-n">151</strong>&nbsp;{t('counter.label')}</p>
       </div>
       <div class="quiz" id="hero-quiz">
         <div class="quiz-progress">
@@ -111,36 +111,48 @@ const currentLangName = langNames[lang];
           <p class="quiz-q">{t('quiz.q4')}</p>
           <select class="quiz-select" id="quiz-country">
             <option value="" disabled selected>{t('quiz.q4.placeholder')}</option>
-            <option>Ukraine</option>
-            <option>Russia</option>
-            <option>Germany</option>
-            <option>France</option>
-            <option>Spain</option>
-            <option>Italy</option>
-            <option>Poland</option>
-            <option>Czech Republic</option>
-            <option>Romania</option>
-            <option>Turkey</option>
-            <option>UAE</option>
-            <option>Israel</option>
-            <option>Saudi Arabia</option>
-            <option>United Kingdom</option>
-            <option>United States</option>
-            <option>Canada</option>
-            <option>Brazil</option>
-            <option>Argentina</option>
-            <option>Mexico</option>
-            <option>India</option>
-            <option>Australia</option>
-            <option>Netherlands</option>
-            <option>Belgium</option>
-            <option>Portugal</option>
-            <option>Switzerland</option>
-            <option>Austria</option>
-            <option>Sweden</option>
-            <option>Kazakhstan</option>
-            <option>Georgia</option>
-            <option>Other</option>
+            <optgroup label="Eastern Europe">
+              <option>Ukraine</option>
+              <option>Russia</option>
+              <option>Poland</option>
+              <option>Czech Republic</option>
+              <option>Romania</option>
+              <option>Kazakhstan</option>
+              <option>Georgia</option>
+            </optgroup>
+            <optgroup label="Western Europe">
+              <option>Germany</option>
+              <option>France</option>
+              <option>Spain</option>
+              <option>Italy</option>
+              <option>Netherlands</option>
+              <option>Belgium</option>
+              <option>Portugal</option>
+              <option>Switzerland</option>
+              <option>Austria</option>
+              <option>Sweden</option>
+              <option>United Kingdom</option>
+            </optgroup>
+            <optgroup label="Middle East">
+              <option>UAE</option>
+              <option>Israel</option>
+              <option>Saudi Arabia</option>
+              <option>Turkey</option>
+            </optgroup>
+            <optgroup label="Americas">
+              <option>United States</option>
+              <option>Canada</option>
+              <option>Brazil</option>
+              <option>Argentina</option>
+              <option>Mexico</option>
+            </optgroup>
+            <optgroup label="Asia &amp; Pacific">
+              <option>India</option>
+              <option>Australia</option>
+            </optgroup>
+            <optgroup label="Other">
+              <option>Other</option>
+            </optgroup>
           </select>
           <button class="btn-primary quiz-next" style="margin-top:12px;width:100%;justify-content:center">{t('quiz.q4.next')}</button>
         </div>
@@ -148,6 +160,7 @@ const currentLangName = langNames[lang];
           <div class="quiz-done">
             <div class="quiz-check">&#10003;</div>
             <h3>{t('quiz.success.title')}</h3>
+            <p class="quiz-country-tag hidden" id="quiz-country-tag">Launching in <strong id="quiz-country-name"></strong></p>
             <p>{t('quiz.success.sub')}</p>
             <form class="quiz-email-form" id="quiz-email-form" novalidate>
               <input type="email" class="quiz-email-input" id="quiz-email" placeholder={t('hero.email')} required autocomplete="email" />
@@ -627,6 +640,7 @@ const currentLangName = langNames[lang];
   }
   .quiz-email-input:focus { outline: none; border-color: var(--orange); }
   .quiz-email-form .btn-primary { justify-content: center; }
+  .quiz-country-tag { font-size: 0.82rem; color: var(--orange); font-weight: 600; margin: 0 0 10px; }
   .quiz-sent { font-size: 0.85rem; color: #16a34a; text-align: center; margin: 8px 0 0; font-weight: 600; }
 </style>
 
@@ -684,10 +698,16 @@ const currentLangName = langNames[lang];
         } else {
           const fomoEl = document.querySelector('.fomo-n') as HTMLElement;
           if (fomoEl) {
-            const n = Math.min(parseInt(fomoEl.textContent ?? '384') + 1, 499);
+            const n = parseInt(fomoEl.textContent ?? '151') + 1;
             fomoEl.textContent = String(n);
             const fill = document.querySelector('.fomo-fill') as HTMLElement;
-            if (fill) fill.style.width = `${(n / 500) * 100}%`;
+            if (fill) fill.style.width = `${Math.min((n / 500) * 100, 100)}%`;
+          }
+          const tag = document.getElementById('quiz-country-tag');
+          const nameEl = document.getElementById('quiz-country-name');
+          if (tag && nameEl && answers[4]) {
+            nameEl.textContent = answers[4];
+            tag.classList.remove('hidden');
           }
         }
       }, 180);
