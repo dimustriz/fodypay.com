@@ -42,5 +42,5 @@ jobs:
           cd /tmp/gh-pages
           git add -A
           git diff --cached --quiet || git commit -m "deploy"
-          git push origin dist
+          git push origin HEAD:dist
 
