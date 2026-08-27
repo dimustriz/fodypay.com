@@ -61,7 +61,7 @@ const currentLangName = langNames[lang];
     <div class="hero-content">
       <span class="badge">{t('hero.badge')}</span>
       <h1>{t('hero.h1')}<br><span class="h1-accent">{t('hero.h1accent')}</span></h1>
-      <p class="hero-sub">{t('hero.sub')}</p>
+      <div class="hero-bonus">&#127873; {t('hero.bonus')}</div>
       <div class="hero-proof">
         <span>{t('hero.proof1')}</span>
         <span class="dot">&middot;</span>
@@ -69,11 +69,52 @@ const currentLangName = langNames[lang];
         <span class="dot">&middot;</span>
         <span>{t('hero.proof3')}</span>
       </div>
-      <form class="waitlist-form" id="waitlist" action="#" method="POST">
-        <input type="email" name="email" placeholder={t('hero.email')} required />
-        <button type="submit" class="btn-primary">{t('hero.cta')}</button>
-      </form>
-      <p class="hero-note">{t('hero.note')}</p>
+      <div class="fomo-counter">
+        <div class="fomo-bar"><div class="fomo-fill" style="width:76.8%"></div></div>
+        <p class="fomo-text"><strong class="fomo-n">384</strong>&nbsp;{t('counter.label')}</p>
+      </div>
+      <div class="quiz" id="hero-quiz">
+        <div class="quiz-progress">
+          <span class="qp-step active">1</span><span class="qp-line"></span>
+          <span class="qp-step">2</span><span class="qp-line"></span>
+          <span class="qp-step">3</span>
+        </div>
+        <div class="quiz-panel" data-panel="1">
+          <p class="quiz-q">{t('quiz.q1')}</p>
+          <div class="quiz-opts">
+            <button class="quiz-opt">{t('quiz.q1.a1')}</button>
+            <button class="quiz-opt">{t('quiz.q1.a2')}</button>
+            <button class="quiz-opt">{t('quiz.q1.a3')}</button>
+            <button class="quiz-opt">{t('quiz.q1.a4')}</button>
+            <button class="quiz-opt">{t('quiz.q1.a5')}</button>
+          </div>
+        </div>
+        <div class="quiz-panel hidden" data-panel="2">
+          <p class="quiz-q">{t('quiz.q2')}</p>
+          <div class="quiz-opts">
+            <button class="quiz-opt">{t('quiz.q2.a1')}</button>
+            <button class="quiz-opt">{t('quiz.q2.a2')}</button>
+            <button class="quiz-opt">{t('quiz.q2.a3')}</button>
+            <button class="quiz-opt">{t('quiz.q2.a4')}</button>
+          </div>
+        </div>
+        <div class="quiz-panel hidden" data-panel="3">
+          <p class="quiz-q">{t('quiz.q3')}</p>
+          <div class="quiz-opts">
+            <button class="quiz-opt">{t('quiz.q3.a1')}</button>
+            <button class="quiz-opt">{t('quiz.q3.a2')}</button>
+            <button class="quiz-opt">{t('quiz.q3.a3')}</button>
+          </div>
+        </div>
+        <div class="quiz-panel hidden" data-panel="done">
+          <div class="quiz-done">
+            <div class="quiz-check">&#10003;</div>
+            <h3>{t('quiz.success.title')}</h3>
+            <p>{t('quiz.success.sub')}</p>
+            <a href="https://t.me/FodyPayBot" class="btn-primary" target="_blank" rel="noopener noreferrer">{t('quiz.success.cta')}</a>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="hero-visual">
       <div class="phone-mockup">
@@ -149,10 +190,7 @@ const currentLangName = langNames[lang];
     <div class="cta-box">
       <h2>{t('cta.h2')}</h2>
       <p>{t('cta.p')}</p>
-      <form class="waitlist-form" action="#" method="POST">
-        <input type="email" name="email" placeholder={t('cta.email')} required />
-        <button type="submit" class="btn-white">{t('cta.btn')}</button>
-      </form>
+      <a href="https://t.me/FodyPayBot" class="btn-white" target="_blank" rel="noopener noreferrer">{t('cta.btn.tg')}</a>
     </div>
   </div>
 </section>
@@ -471,6 +509,66 @@ const currentLangName = langNames[lang];
     .steps { flex-direction: column; align-items: center; }
     .step { max-width: 100%; }
   }
+
+  /* ===== Hero Bonus Pill ===== */
+  .hero-bonus {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,140,0,.12); border: 1px solid rgba(255,140,0,.35);
+    border-radius: 8px; padding: 6px 12px;
+    font-size: 0.82rem; font-weight: 600; color: var(--orange);
+    margin-bottom: 12px;
+  }
+
+  /* ===== FOMO Counter ===== */
+  .fomo-counter { margin-bottom: 16px; max-width: 420px; }
+  .fomo-bar {
+    height: 6px; background: var(--border); border-radius: 99px;
+    overflow: hidden; margin-bottom: 6px;
+  }
+  .fomo-fill {
+    height: 100%; background: linear-gradient(90deg, var(--orange), #ff6b35);
+    border-radius: 99px; transition: width 1s ease;
+  }
+  .fomo-text { font-size: 0.82rem; color: var(--text-muted); margin: 0; }
+  .fomo-n { color: var(--text); font-weight: 700; }
+
+  /* ===== Quiz ===== */
+  .hidden { display: none !important; }
+  .quiz {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 20px; max-width: 460px;
+  }
+  .quiz-progress { display: flex; align-items: center; margin-bottom: 16px; }
+  .qp-step {
+    width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+    border: 2px solid var(--border); background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; font-weight: 700; color: var(--text-muted);
+    transition: border-color .2s, background .2s, color .2s;
+  }
+  .qp-step.active { border-color: var(--orange); background: var(--orange); color: #fff; }
+  .qp-step.done { border-color: var(--orange); color: var(--orange); }
+  .qp-line { flex: 1; height: 2px; background: var(--border); }
+  .quiz-q { font-size: 0.93rem; font-weight: 600; color: var(--text); margin: 0 0 12px; }
+  .quiz-opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .quiz-opt {
+    padding: 8px 14px; border-radius: 8px;
+    border: 1px solid var(--border); background: var(--bg);
+    font-size: 0.84rem; font-weight: 500; color: var(--text);
+    cursor: pointer; transition: border-color .15s, background .15s, color .15s;
+  }
+  .quiz-opt:hover { border-color: var(--orange); color: var(--orange); }
+  .quiz-opt.selected { border-color: var(--orange); background: rgba(255,140,0,.1); color: var(--orange); pointer-events: none; }
+  .quiz-done { text-align: center; padding: 4px 0; }
+  .quiz-check {
+    width: 52px; height: 52px; border-radius: 50%; font-size: 1.5rem; font-weight: 700;
+    background: rgba(34,197,94,.15); color: #16a34a;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 14px;
+  }
+  .quiz-done h3 { margin: 0 0 8px; font-size: 1.05rem; }
+  .quiz-done p { font-size: 0.88rem; color: var(--text-muted); margin: 0 0 16px; line-height: 1.5; }
+  .quiz-done .btn-primary { width: 100%; justify-content: center; }
 </style>
 
 <script>
@@ -509,4 +607,50 @@ const currentLangName = langNames[lang];
     langDrop?.setAttribute('hidden', '');
     langBtn?.setAttribute('aria-expanded', 'false');
   });
+
+  // Quiz
+  const quiz = document.getElementById('hero-quiz');
+  if (quiz) {
+    let step = 1;
+    quiz.addEventListener('click', (e) => {
+      const btn = (e.target as HTMLElement).closest('.quiz-opt') as HTMLButtonElement | null;
+      if (!btn) return;
+      btn.classList.add('selected');
+      const nextPanel = step < 3 ? String(step + 1) : 'done';
+      setTimeout(() => {
+        (quiz.querySelector(`[data-panel="${step}"]`) as HTMLElement)?.classList.add('hidden');
+        (quiz.querySelector(`[data-panel="${nextPanel}"]`) as HTMLElement)?.classList.remove('hidden');
+        if (step < 3) {
+          quiz.querySelectorAll('.qp-step')[step]?.classList.add('active');
+          step++;
+        } else {
+          const fomoEl = document.querySelector('.fomo-n') as HTMLElement;
+          if (fomoEl) {
+            const n = Math.min(parseInt(fomoEl.textContent ?? '384') + 1, 499);
+            fomoEl.textContent = String(n);
+            const fill = document.querySelector('.fomo-fill') as HTMLElement;
+            if (fill) fill.style.width = `${(n / 500) * 100}%`;
+          }
+        }
+      }, 180);
+    });
+  }
+
+  // FOMO counter slow drift
+  const fomoEl = document.querySelector('.fomo-n') as HTMLElement;
+  if (fomoEl) {
+    let n = parseInt(fomoEl.textContent ?? '384');
+    const drift = () => {
+      const wait = 25000 + Math.random() * 35000;
+      setTimeout(() => {
+        if (n >= 499) return;
+        n++;
+        fomoEl.textContent = String(n);
+        const fill = document.querySelector('.fomo-fill') as HTMLElement;
+        if (fill) fill.style.width = `${(n / 500) * 100}%`;
+        drift();
+      }, wait);
+    };
+    drift();
+  }
 </script>
