@@ -1,27 +1,10 @@
 <?php
 /*
  * FodyPay waitlist endpoint — stores quiz submissions in MySQL.
- *
- * Run this once in Hostinger MySQL (hPanel ? Databases ? phpMyAdmin):
- *
- *   CREATE TABLE waitlist (
- *     id         INT AUTO_INCREMENT PRIMARY KEY,
- *     email      VARCHAR(255) NOT NULL UNIQUE,
- *     use_case   VARCHAR(160),
- *     crypto     VARCHAR(160),
- *     spend      VARCHAR(160),
- *     country    VARCHAR(120),
- *     lang       VARCHAR(10),
- *     created_at DATETIME NOT NULL
- *   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
- *
- * Then fill in the four constants below.
+ * DB credentials live in config.php (fill in on Hostinger File Manager).
  */
 
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'YOUR_DB_NAME');
-define('DB_USER', 'YOUR_DB_USER');
-define('DB_PASS', 'YOUR_DB_PASSWORD');
+require_once __DIR__ . '/config.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
