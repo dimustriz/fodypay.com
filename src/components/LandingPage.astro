@@ -109,21 +109,51 @@ const currentLangName = langNames[lang];
         </div>
         <div class="quiz-panel hidden" data-panel="4">
           <p class="quiz-q">{t('quiz.q4')}</p>
-          <div class="quiz-opts">
-            <button class="quiz-opt">{t('quiz.q4.a1')}</button>
-            <button class="quiz-opt">{t('quiz.q4.a2')}</button>
-            <button class="quiz-opt">{t('quiz.q4.a3')}</button>
-            <button class="quiz-opt">{t('quiz.q4.a4')}</button>
-            <button class="quiz-opt">{t('quiz.q4.a5')}</button>
-            <button class="quiz-opt">{t('quiz.q4.a6')}</button>
-          </div>
+          <select class="quiz-select" id="quiz-country">
+            <option value="" disabled selected>{t('quiz.q4.placeholder')}</option>
+            <option>Ukraine</option>
+            <option>Russia</option>
+            <option>Germany</option>
+            <option>France</option>
+            <option>Spain</option>
+            <option>Italy</option>
+            <option>Poland</option>
+            <option>Czech Republic</option>
+            <option>Romania</option>
+            <option>Turkey</option>
+            <option>UAE</option>
+            <option>Israel</option>
+            <option>Saudi Arabia</option>
+            <option>United Kingdom</option>
+            <option>United States</option>
+            <option>Canada</option>
+            <option>Brazil</option>
+            <option>Argentina</option>
+            <option>Mexico</option>
+            <option>India</option>
+            <option>Australia</option>
+            <option>Netherlands</option>
+            <option>Belgium</option>
+            <option>Portugal</option>
+            <option>Switzerland</option>
+            <option>Austria</option>
+            <option>Sweden</option>
+            <option>Kazakhstan</option>
+            <option>Georgia</option>
+            <option>Other</option>
+          </select>
+          <button class="btn-primary quiz-next" style="margin-top:12px;width:100%;justify-content:center">{t('quiz.q4.next')}</button>
         </div>
         <div class="quiz-panel hidden" data-panel="done">
           <div class="quiz-done">
             <div class="quiz-check">&#10003;</div>
             <h3>{t('quiz.success.title')}</h3>
             <p>{t('quiz.success.sub')}</p>
-            <a href="https://t.me/FodyPayBot" class="btn-primary" target="_blank" rel="noopener noreferrer">{t('quiz.success.cta')}</a>
+            <form class="quiz-email-form" id="quiz-email-form" novalidate>
+              <input type="email" class="quiz-email-input" id="quiz-email" placeholder={t('hero.email')} required autocomplete="email" />
+              <button type="submit" class="btn-primary">{t('quiz.success.cta')}</button>
+            </form>
+            <p class="quiz-sent hidden">{t('quiz.success.sent')}</p>
           </div>
         </div>
       </div>
@@ -581,6 +611,23 @@ const currentLangName = langNames[lang];
   .quiz-done h3 { margin: 0 0 8px; font-size: 1.05rem; }
   .quiz-done p { font-size: 0.88rem; color: var(--text-muted); margin: 0 0 16px; line-height: 1.5; }
   .quiz-done .btn-primary { width: 100%; justify-content: center; }
+  .quiz-select {
+    width: 100%; padding: 10px 32px 10px 12px; border-radius: 8px;
+    border: 1px solid var(--border); background: var(--bg);
+    font-size: 0.88rem; color: var(--text); cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 10px center;
+  }
+  .quiz-select:focus { outline: none; border-color: var(--orange); }
+  .quiz-email-form { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+  .quiz-email-input {
+    padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--bg); font-size: 0.88rem; color: var(--text); width: 100%;
+  }
+  .quiz-email-input:focus { outline: none; border-color: var(--orange); }
+  .quiz-email-form .btn-primary { justify-content: center; }
+  .quiz-sent { font-size: 0.85rem; color: #16a34a; text-align: center; margin: 8px 0 0; font-weight: 600; }
 </style>
 
 <script>
@@ -624,10 +671,9 @@ const currentLangName = langNames[lang];
   const quiz = document.getElementById('hero-quiz');
   if (quiz) {
     let step = 1;
-    quiz.addEventListener('click', (e) => {
-      const btn = (e.target as HTMLElement).closest('.quiz-opt') as HTMLButtonElement | null;
-      if (!btn) return;
-      btn.classList.add('selected');
+    const answers: Record<number, string> = {};
+
+    const advance = () => {
       const nextPanel = step < 4 ? String(step + 1) : 'done';
       setTimeout(() => {
         (quiz.querySelector(`[data-panel="${step}"]`) as HTMLElement)?.classList.add('hidden');
@@ -645,6 +691,45 @@ const currentLangName = langNames[lang];
           }
         }
       }, 180);
+    };
+
+    quiz.addEventListener('click', (e) => {
+      const opt = (e.target as HTMLElement).closest('.quiz-opt') as HTMLButtonElement | null;
+      const next = (e.target as HTMLElement).closest('.quiz-next') as HTMLButtonElement | null;
+      if (opt) {
+        opt.classList.add('selected');
+        answers[step] = opt.textContent?.trim() ?? '';
+        advance();
+      } else if (next) {
+        const sel = quiz.querySelector('#quiz-country') as HTMLSelectElement;
+        if (!sel?.value) { sel?.focus(); return; }
+        answers[4] = sel.value;
+        advance();
+      }
+    });
+
+    const emailForm = document.getElementById('quiz-email-form') as HTMLFormElement | null;
+    emailForm?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const emailInput = document.getElementById('quiz-email') as HTMLInputElement;
+      const submitBtn = emailForm.querySelector('button[type="submit"]') as HTMLButtonElement;
+      submitBtn.disabled = true;
+      const lang = document.documentElement.lang ||
+        (location.pathname.match(/^\/([a-z]{2})(?:\/|$)/)?.[1] ?? 'en');
+      try {
+        await fetch('/api/waitlist.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: emailInput.value,
+            a1: answers[1] ?? '', a2: answers[2] ?? '',
+            a3: answers[3] ?? '', a4: answers[4] ?? '',
+            lang,
+          }),
+        });
+      } catch (_) { /* server not configured yet -- silently continue */ }
+      emailForm.classList.add('hidden');
+      (emailForm.nextElementSibling as HTMLElement)?.classList.remove('hidden');
     });
   }
 
