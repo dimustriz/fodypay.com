@@ -51,8 +51,6 @@ const currentLangName = langNames[lang];
       <button class="burger" aria-expanded="false" aria-controls="nav-links" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
-
-      <a href={langPath(lang, '#waitlist')} class="btn-primary nav-cta">{t('nav.cta')}</a>
     </div>
   </div>
 </header>
@@ -303,8 +301,6 @@ const currentLangName = langNames[lang];
     .nav-links.open { display: flex; }
     .nav-links > a { padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 1rem; }
     .burger { display: flex; }
-    /* hide lang dropdown from header; show inline language list inside hamburger */
-    .nav-cta { display: none; }
     .lang-switcher { display: none; }
     .nav-lang-mobile {
       display: flex; flex-wrap: wrap; gap: 8px;
@@ -318,7 +314,6 @@ const currentLangName = langNames[lang];
     .nav-lang-mobile a.active { color: var(--orange); border-color: var(--orange); font-weight: 600; }
   }
   @media (min-width: 768px) {
-    .nav-cta { display: inline-flex; }
     .nav-links { display: flex !important; position: static; background: none; border: none; padding: 0; flex-direction: row; }
     .nav-links a { padding: 0; border: none; font-size: 0.9rem; }
   }
