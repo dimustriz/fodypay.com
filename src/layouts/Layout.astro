@@ -2,22 +2,31 @@
 interface Props {
   title: string;
   description?: string;
+  lang?: string;
 }
 
 const {
   title,
-  description = 'FodyPay &mdash; send, receive, and manage money with ease. The modern digital wallet built for everyone.',
+  description = 'FodyPay — a virtual Visa card for travel, online shopping, and remote work.',
+  lang = 'en',
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
+    <script is:inline>
+      (function(){
+        var t = localStorage.getItem('fp-theme') ||
+          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', t);
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
