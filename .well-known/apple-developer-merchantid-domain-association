@@ -1,0 +1,9 @@
+PLACEHOLDER — Replace this entire file with the content provided by Stripe.
+
+To get the real content:
+1. Go to Stripe Dashboard ? Settings ? Apple Pay
+2. Click "Add new domain" and enter fodypay.com
+3. Stripe will provide the exact file content to place here
+4. Replace this file completely with that content (it will be a long hex string, no newline)
+
+Do NOT serve this placeholder file in production.
