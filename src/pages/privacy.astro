@@ -30,7 +30,7 @@ const updated = 'August 26, 2026';
         <ul>
           <li><strong>Identity data</strong>: full name, date of birth, nationality, government-issued ID (for KYC verification)</li>
           <li><strong>Contact data</strong>: email address, phone number, postal address</li>
-          <li><strong>Financial data</strong>: bank account details, payment card information (processed by Stripe; we do not store raw card numbers)</li>
+          <li><strong>Financial data</strong>: bank account details, payment card information (upon launch, to be processed by our regulated payment infrastructure partners; we will not store raw card numbers)</li>
           <li><strong>Account credentials</strong>: hashed password, biometric identifiers (stored locally on device only)</li>
           <li><strong>Profile data</strong>: profile picture, preferences, settings</li>
         </ul>
@@ -45,8 +45,8 @@ const updated = 'August 26, 2026';
 
         <h3>2.3 Data from Third Parties</h3>
         <ul>
-          <li><strong>Stripe</strong>: payment processing data, fraud signals, and risk scores</li>
-          <li><strong>Bridge</strong>: stablecoin and cryptocurrency transaction data, wallet addresses, and compliance signals</li>
+          <li><strong>Payment processor (intended: Stripe, Inc.)</strong>: upon launch, payment processing data, fraud signals, and risk scores</li>
+          <li><strong>Crypto infrastructure partner (intended: Bridge)</strong>: upon launch, stablecoin and cryptocurrency transaction data, wallet addresses, and compliance signals</li>
           <li><strong>Identity verification providers</strong>: KYC/AML check results</li>
           <li><strong>Financial institutions</strong>: account verification and transaction confirmations</li>
         </ul>
@@ -71,15 +71,15 @@ const updated = 'August 26, 2026';
       </section>
 
       <section>
-        <h2>4. Payment Processing &mdash; Stripe</h2>
-        <p>We use <strong>Stripe, Inc.</strong> to process payments. When you add a payment method or initiate a transaction, your payment information is transmitted directly to Stripe's secure servers. FodyPay does not store your full card number, CVV, or bank credentials.</p>
-        <p>Stripe's use of your data is governed by the <a href="https://stripe.com/privacy" target="_blank" rel="noopener">Stripe Privacy Policy</a>. Stripe is certified to PCI DSS Level 1, the highest level of payment card industry compliance.</p>
+        <h2>4. Payment Processing</h2>
+        <p>Upon launch, we intend to use <strong>Stripe, Inc.</strong> as our payment processor. When you add a payment method or initiate a transaction, your payment information will be transmitted directly to our payment processor's secure servers. FodyPay will not store your full card number, CVV, or bank credentials.</p>
+        <p>Our intended payment processor, Stripe, is certified to PCI DSS Level 1, the highest level of payment card industry compliance. Its data practices are governed by the <a href="https://stripe.com/privacy" target="_blank" rel="noopener">Stripe Privacy Policy</a>.</p>
       </section>
 
       <section>
-        <h2>5. Cryptocurrency Infrastructure &mdash; Bridge</h2>
-        <p>Cryptocurrency and stablecoin transactions are facilitated through <strong>Bridge</strong>. When you perform crypto operations, relevant transaction data (including wallet addresses and amounts) is shared with Bridge to execute and settle transactions.</p>
-        <p>Bridge's use of your data is governed by the <a href="https://www.bridge.xyz/legal/privacy" target="_blank" rel="noopener">Bridge Privacy Policy</a>. Bridge applies AML and sanctions screening to all transactions as required by applicable law.</p>
+        <h2>5. Cryptocurrency Infrastructure</h2>
+        <p>Upon launch, cryptocurrency and stablecoin transactions are intended to be facilitated through our regulated crypto infrastructure partner (<strong>Bridge</strong>). When you perform crypto operations, relevant transaction data (including wallet addresses and amounts) will be shared with that partner to execute and settle transactions.</p>
+        <p>Our intended crypto infrastructure partner applies AML and sanctions screening to all transactions as required by applicable law. Its data practices will be governed by its published privacy policy, which will be linked in-app prior to activation of crypto features.</p>
       </section>
 
       <section>
@@ -156,16 +156,14 @@ const updated = 'August 26, 2026';
       <section>
         <h2>15. Contact Us</h2>
         <p>FodyLabs LLC &mdash; operating FodyPay<br />
-        Email: <a href="mailto:privacy@fodypay.com">privacy@fodypay.com</a><br />
-        For Stripe-related data inquiries: <a href="https://stripe.com/privacy" target="_blank" rel="noopener">stripe.com/privacy</a><br />
-        For Bridge-related data inquiries: <a href="https://www.bridge.xyz/legal/privacy" target="_blank" rel="noopener">bridge.xyz/legal/privacy</a></p>
+        Email: <a href="mailto:privacy@fodypay.com">privacy@fodypay.com</a></p>
       </section>
     </div>
   </main>
 
   <footer class="footer">
     <div class="container">
-      <p>&copy; 2026 FodyPay. <a href="/">Home</a> &middot; <a href="/privacy">Privacy Policy</a> &middot; <a href="/terms">Terms of Service</a></p>
+      <p>&copy; 2026 FodyLabs. <a href="/">Home</a> &middot; <a href="/privacy">Privacy Policy</a> &middot; <a href="/terms">Terms of Service</a></p>
     </div>
   </footer>
 </Layout>

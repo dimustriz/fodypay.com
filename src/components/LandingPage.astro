@@ -266,9 +266,12 @@ const currentLangName = langNames[lang];
         <a href="mailto:hello@fodypay.com">{t('footer.contact')}</a>
       </div>
     </div>
+    <div class="footer-disclaimer">
+      <span class="footer-disclaimer-label">Regulatory Disclaimer</span>
+      <p>FodyPay is a financial software interface currently under development by FodyLabs. FodyPay is a technology platform, not a licensed bank, electronic money institution, or virtual asset custodian. Live card issuance, fiat-to-crypto orchestration, and banking infrastructure will be exclusively handled by our fully regulated third-party partners upon official release.</p>
+    </div>
     <div class="footer-bottom">
       <p>{t('footer.rights')}</p>
-      <p>{t('footer.payment')}</p>
     </div>
   </div>
 </footer>
@@ -549,6 +552,9 @@ const currentLangName = langNames[lang];
   .footer-links { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; }
   .footer-links a { font-size: 0.85rem; color: var(--text-muted); transition: color .2s; }
   .footer-links a:hover { color: var(--text); }
+  .footer-disclaimer { margin-bottom: 20px; padding: 14px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; }
+  .footer-disclaimer-label { display: block; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+  .footer-disclaimer p { font-size: 0.75rem; line-height: 1.7; color: var(--text-muted); margin: 0; }
   .footer-bottom { border-top: 1px solid var(--border); padding-top: 18px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
   .footer-bottom p { font-size: 0.78rem; color: var(--text-muted); margin: 0; }
 

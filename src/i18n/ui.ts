@@ -56,7 +56,7 @@ export const ui: Record<Lang, Record<string, string>> = {
     'footer.privacy': 'Privacy Policy',
     'footer.terms': 'Terms of Service',
     'footer.contact': 'Contact',
-    'footer.rights': '\u00a9 2026 FodyPay. All rights reserved.',
+    'footer.rights': '\u00a9 2026 FodyLabs. All rights reserved.',
     'footer.payment': 'Payment processing by Stripe.',
     'theme.dark': 'Switch to dark mode',
     'theme.light': 'Switch to light mode',
