@@ -2,6 +2,7 @@
   "name": "fodypay-com",
   "type": "module",
   "version": "0.0.1",
+  "packageManager": "pnpm@11.9.0",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -47,5 +48,9 @@
     "tailwindcss": "^4.3.1",
     "typescript": "^6.0.3",
     "wrangler": "^4.105.0"
+  },
+  "overrides": {
+    "astro": "$astro",
+    "typescript": "$typescript"
   }
 }
