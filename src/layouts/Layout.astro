@@ -59,15 +59,17 @@ const {
     --divider: #1d2030;
 
     /* Mapped onto the chat widget's own design tokens so it inherits the
-       FodyPay theme (the widget otherwise defaults to a generic blue/dark
-       palette). */
+       FodyPay dark theme. The widget otherwise defaults to a light/blue palette
+       and would blend into the page and render light-grey message bubbles. */
     --color-primary: var(--primary);
     --primary-rgb: 255, 140, 0;
-    --color-surface: var(--surface);
-    --color-surface-border: var(--divider);
-    --color-text: var(--text);
-    --color-bg: var(--bg);
-    --color-pill-text: var(--text-secondary);
+    --color-surface: var(--elevated);            /* #1d2030 — panel lifts off the page */
+    --color-surface-border: var(--text-tertiary); /* #3d4155 — visible panel border */
+    --color-text: var(--text);                   /* #ffffff */
+    --color-bg: var(--surface);                  /* #151820 — input row */
+    --color-pill-bg: #2a2f45;                    /* bot bubble — lighter than the panel */
+    --color-pill-text: #d1d5db;                  /* bubble / label text */
+    --color-muted: var(--text-secondary);        /* nudge close */
   }
 
   *, *::before, *::after {
