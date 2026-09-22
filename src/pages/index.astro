@@ -1,8 +1,22 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import LandingPage from '../components/LandingPage.astro';
+import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+import Hero from '@/components/Hero.astro';
+import Features from '@/components/Features.astro';
+import HowItWorks from '@/components/HowItWorks.astro';
+import Security from '@/components/Security.astro';
+import CTA from '@/components/CTA.astro';
+import Footer from '@/components/Footer.astro';
 ---
 
-<Layout title="FodyPay - A card for everywhere your bank isn't." lang="en">
-  <LandingPage lang="en" />
+<Layout title="FodyPay — Money moves at your speed">
+  <Nav />
+  <main>
+    <Hero />
+    <Features />
+    <HowItWorks />
+    <Security />
+    <CTA />
+  </main>
+  <Footer />
 </Layout>

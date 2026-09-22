@@ -1,13 +1,17 @@
 ---
+import ChatWidget from '@/components/ChatWidget.astro';
+import { chatStrings } from '@/i18n/chat';
+import type { Lang } from '@/i18n/ui';
+
 interface Props {
   title: string;
   description?: string;
-  lang?: string;
+  lang?: Lang;
 }
 
 const {
   title,
-  description = 'FodyPay — a virtual Visa card for travel, online shopping, and remote work.',
+  description = 'FodyPay — send, receive, and manage money with ease. The modern digital wallet built for everyone.',
   lang = 'en',
 } = Astro.props;
 ---
@@ -20,13 +24,6 @@ const {
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
-    <script is:inline>
-      (function(){
-        var t = localStorage.getItem('fp-theme') ||
-          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        document.documentElement.setAttribute('data-theme', t);
-      })();
-    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -36,6 +33,11 @@ const {
   </head>
   <body>
     <slot />
+    <ChatWidget
+      i={{ chat: chatStrings[lang] }}
+      tenantId="fodypay"
+      tenantName="FodyPay"
+    />
   </body>
 </html>
 
@@ -55,6 +57,17 @@ const {
     --text-secondary: #7e8299;
     --text-tertiary: #3d4155;
     --divider: #1d2030;
+
+    /* Mapped onto the chat widget's own design tokens so it inherits the
+       FodyPay theme (the widget otherwise defaults to a generic blue/dark
+       palette). */
+    --color-primary: var(--primary);
+    --primary-rgb: 255, 140, 0;
+    --color-surface: var(--surface);
+    --color-surface-border: var(--divider);
+    --color-text: var(--text);
+    --color-bg: var(--bg);
+    --color-pill-text: var(--text-secondary);
   }
 
   *, *::before, *::after {

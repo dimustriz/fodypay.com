@@ -1,0 +1,28 @@
+name = "fodypay-chat-backend"
+main = "src/index.ts"
+compatibility_date = "2026-09-09"
+
+# Create the D1 database and KV namespace once, then paste their ids here:
+#   npx wrangler d1 create fodypay_chat_db
+#   npx wrangler kv namespace create CHAT_SESSIONS
+[[d1_databases]]
+binding = "DB"
+database_name = "fodypay_chat_db"
+database_id = "98f0985e-b170-4d20-a377-67006fca5208"
+
+[ai]
+binding = "AI"
+
+[[kv_namespaces]]
+binding = "CHAT_SESSIONS"
+id = "cc1a6e9389ec4200a3ce4ea5e1c46868"
+
+# Secrets — set with `npx wrangler secret put <NAME>`, never commit real values:
+#   TELEGRAM_BOT_TOKEN       — bot token from @BotFather
+#   TELEGRAM_WEBHOOK_SECRET  — random secret, also passed to setWebhook
+#   CHAT_SYNC_SECRET         — shared bearer secret for the /internal/* endpoints
+
+# Proactive "admin away" safety net (see the `scheduled` handler in
+# src/index.ts): every minute, re-engage guests whose operator went quiet.
+[triggers]
+crons = ["* * * * *"]

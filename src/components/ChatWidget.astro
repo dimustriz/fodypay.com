@@ -1,0 +1,518 @@
+---
+import type { ChatStrings } from './chat-logic';
+
+interface Props {
+  i?: Record<string, any>;
+  // TenantHome's per-tenant --color-primary/--color-accent(-contrast) custom
+  // properties (see its own `themeVars`) - passed through since this widget
+  // renders as a sibling of <main>, outside where those are normally set.
+  themeVars?: string;
+  // rent_objects.id - forwarded to the chat backend so it can route this
+  // session's guest messages to the right tenant's Telegram admin(s).
+  tenantId?: string;
+  // rent_objects.name - used as the AI's display label so the very first
+  // (locally-rendered) greeting bubble already shows the same name a real
+  // AI reply's server-provided sender_name would, instead of a generic
+  // fallback that then changes on the first real reply.
+  tenantName?: string;
+  // Proactive hint shown near the FAB after a short delay. Landing passes its
+  // own sales copy; tenant sites fall back to i.chat.nudge / the default below.
+  nudgeText?: string;
+}
+
+const defaultChatStrings: ChatStrings = {
+  title: 'FodyPay support',
+  greeting: 'Hi! How can I help you with FodyPay?',
+  placeholder: 'Type a message...',
+  send: 'Send',
+  closeLabel: 'Close chat',
+  today: 'Today',
+  yesterday: 'Yesterday',
+  aiLabel: 'FodyPay AI',
+  hostLabel: 'Team',
+  newMessages: 'New messages',
+  seeOriginal: 'See original',
+  seeTranslation: 'See translation',
+};
+
+const { i, themeVars = '', tenantId, tenantName, nudgeText: nudgeTextProp } = Astro.props;
+const chat: ChatStrings & { openLabel: string } = {
+  ...defaultChatStrings,
+  openLabel: 'Open chat',
+  ...(i?.chat ?? {}),
+};
+// Nudge text priority: explicit prop (landing's sales copy) > locale chat.nudge
+// > concierge default. Read by the inline nudge script below via data-nudge.
+const nudgeText =
+  (typeof nudgeTextProp === 'string' && nudgeTextProp.trim()) ||
+  (i?.chat as { nudge?: string } | undefined)?.nudge ||
+  'Questions about the FodyPay card, fees, or availability in your country? Just ask.';
+---
+
+<div id="chat-root" class="chat-widget-root" style={themeVars}>
+  <button
+    id="init-chat-btn"
+    class="chat-fab"
+    aria-label={chat.openLabel}
+    data-title={chat.title}
+    data-greeting={chat.greeting}
+    data-placeholder={chat.placeholder}
+    data-send={chat.send}
+    data-close-label={chat.closeLabel}
+    data-today={chat.today}
+    data-yesterday={chat.yesterday}
+    data-ai-label={chat.aiLabel}
+    data-host-label={chat.hostLabel}
+    data-new-messages={chat.newMessages}
+    data-see-original={chat.seeOriginal}
+    data-see-translation={chat.seeTranslation}
+    data-tenant-id={tenantId}
+    data-tenant-name={tenantName}
+    data-nudge={nudgeText}
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" style="width: 1.1rem; height: 1.1rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+    </svg>
+  </button>
+
+  <!-- Hidden until the chat script mounts it -->
+  <div id="chat-box-container" style="display: none;"></div>
+</div>
+
+<style>
+  /* Same responsive right-inset formula as .back-to-top (TenantHome.astro) so
+     both FABs line up horizontally. Default bottom is the standard corner
+     inset; the global rules below lift it above a visible "back to top" FAB
+     (24px bottom + 48px height + 12px gap = 84px). */
+  .chat-widget-root {
+    position: fixed;
+    bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+    right: max(24px, calc((100vw - 880px) / 2 + 24px), calc(env(safe-area-inset-right, 0px) + 12px));
+    z-index: 50;
+    transition: bottom 0.25s ease;
+  }
+
+  @media (min-width: 1024px) {
+    .chat-widget-root {
+      right: max(24px, calc((100vw - 1140px) / 2 + 24px), calc(env(safe-area-inset-right, 0px) + 12px));
+    }
+  }
+
+  /* Matches the site's primary-color button convention (e.g. .back-to-top,
+     .book-btn in TenantHome.astro: var(--color-primary) bg + white text).
+     Falls back to the same blue used elsewhere in this widget when no tenant
+     theme color is in scope. Semi-transparent at rest, full opacity on
+     hover/focus so it doesn't compete visually with page content. */
+  .chat-fab {
+    background: var(--color-primary, #2563eb);
+    color: #ffffff;
+    border: none;
+    border-radius: 9999px;
+    padding: 1rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+  }
+
+  .chat-fab:hover,
+  .chat-fab:focus-visible {
+    opacity: 1;
+  }
+</style>
+
+<style is:global>
+  /* Lift the chat widget above a visible "back to top" FAB so they stack
+     cleanly (24px bottom + 48px button + 12px gap = 84px). The default corner
+     inset lives in the scoped .chat-widget-root rule above; these selectors
+     out-specify it (via the #chat-root ID + :has()) only while a back-to-top
+     button is actually visible, so the FAB drops back to the corner when the
+     button hides (near the top) or doesn't exist on the page (e.g. Landing). */
+  body:has(.back-to-top.is-visible) #chat-root,
+  body:has(.car-back-to-top.is-visible) #chat-root,
+  body:has(.hotel-to-top.is-visible) #chat-root {
+    bottom: calc(84px + env(safe-area-inset-bottom, 0px));
+  }
+</style>
+
+<style is:global>
+  /* Proactive "wake up" nudge for the chat FAB. Landing.astro creates this
+     bubble as a child of #chat-root, which is transition:persist'd across
+     ViewTransitions navigations - so this CSS must ship from a component that
+     renders on EVERY page. Otherwise the bubble persists into villa/hotel
+     pages unstyled (position: static), pushing the FAB and nearby controls
+     left instead of floating above the button. */
+  .chat-nudge-bubble {
+    position: absolute;
+    bottom: calc(100% + 12px);
+    right: 0;
+    width: max-content;
+    max-width: 220px;
+    background: var(--color-surface, #ffffff);
+    color: var(--color-text, #14121f);
+    border: 1px solid var(--color-surface-border, rgba(20, 18, 31, 0.14));
+    border-radius: 14px;
+    padding: 12px 32px 12px 14px;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    box-shadow: 0 12px 28px rgba(20, 18, 31, 0.18);
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  .chat-nudge-bubble.is-visible {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .chat-nudge-close {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    line-height: 1;
+    color: var(--color-muted, #5b5670);
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .chat-fab.is-nudging {
+      animation: chat-fab-nudge 1.4s ease-in-out 3;
+    }
+  }
+
+  @keyframes chat-fab-nudge {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+  }
+</style>
+
+<script>
+  import { CHAT_SHELL_HTML } from './chat-shell';
+
+  const initBtn = document.getElementById('init-chat-btn') as HTMLElement | null;
+  const boxContainer = document.getElementById('chat-box-container') as HTMLElement | null;
+  let isLoaded = false;
+
+  // Guards against this whole script re-wiring the same button twice (seen
+  // in dev mode: Vite/Astro HMR re-executing an inline <script> on file
+  // changes doesn't remove listeners a previous execution already attached)
+  // - without this, every click/Enter-press fires N independent mountChat()
+  // instances' handlers, each rendering the guest's message separately
+  // (looked like duplicated messages, though only ever POSTed once - see
+  // repo memory for how that was confirmed).
+  const alreadyWired = initBtn?.dataset.chatWired === 'true';
+  if (initBtn) initBtn.dataset.chatWired = 'true';
+
+  // Warms the chat-logic chunk on first hover/touch/focus (well before an
+  // actual click) so the module is already cached by the time handleOpen
+  // runs - the remaining perceived delay is then just the session/history
+  // network round-trip, which mountChat's own spinner covers.
+  let prefetched: Promise<typeof import('./chat-logic')> | null = null;
+  const prefetchChatLogic = () => {
+    if (!prefetched) prefetched = import('./chat-logic');
+    return prefetched;
+  };
+
+  if (initBtn && boxContainer && !alreadyWired) {
+    initBtn.addEventListener('mouseenter', prefetchChatLogic, { once: true });
+    initBtn.addEventListener('touchstart', prefetchChatLogic, { once: true, passive: true });
+    initBtn.addEventListener('focus', prefetchChatLogic, { once: true });
+
+    // The send-message handle mountChat() returns, stored so the public
+    // window.fodypayChat.send() API (used by the landing page's intake
+    // wizard) can hand the already-mounted widget a composed message.
+    let chatHandle: import('./chat-logic').ChatHandle | null = null;
+    let isOpen = false;
+
+    // Close on Esc - standard modal accessibility. Deliberately NO browser
+    // history manipulation: the chat is a floating FAB, not a navigable page,
+    // so pushing a synthetic history entry per open pollutes the back stack
+    // and makes "back" do something other than navigate. Close affordances are
+    // the X button, Esc, tap-outside, and the swipe-down gesture (all present).
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen) closeChat();
+    });
+
+    // Opens the panel without going through the FAB click handler - shared
+    // by the button itself and the public API below (e.g. the intake
+    // wizard auto-opening chat to post its result).
+    // Small screens treat the chat as a full sheet: lock the page underneath
+    // while it's open so scrolling doesn't "leak" behind the panel.
+    const isSmallViewport = () =>
+      typeof window.matchMedia === 'function' && window.matchMedia('(max-width: 768px)').matches;
+
+    const closeChat = () => {
+      if (!isOpen) return;
+      isOpen = false;
+      boxContainer.style.display = 'none';
+      initBtn.style.display = 'flex';
+      document.body.style.overflow = '';
+    };
+
+    const openPanel = () => {
+      if (isOpen) {
+        chatHandle?.scrollToFirstUnread();
+        return;
+      }
+      isOpen = true;
+      boxContainer.style.display = 'block';
+      initBtn.style.display = 'none';
+      if (isSmallViewport()) document.body.style.overflow = 'hidden';
+      // Zero-latency read receipt - chat-logic's own poll would also clear
+      // this, but only on its next tick (up to POLL_INTERVAL_MS later).
+      initBtn.style.opacity = '';
+      const badge = initBtn.querySelector<HTMLElement>('.chat-fab-unread-badge');
+      if (badge) badge.style.display = 'none';
+      // Opening the panel dismisses the idle nudge (see Landing.astro) for good.
+      boxContainer.closest('.chat-widget-root')
+        ?.querySelector<HTMLElement>('.chat-nudge-bubble')
+        ?.classList.remove('is-visible');
+      initBtn.classList.remove('is-nudging');
+      if (typeof sessionStorage !== 'undefined') sessionStorage.setItem('fodypay_chat_nudge_dismissed', '1');
+      // Land on the first unread message (with a divider), or the latest one.
+      chatHandle?.scrollToFirstUnread();
+    };
+
+    const handleOpen = async () => {
+      openPanel();
+
+      if (!isLoaded) {
+        // Render the full shell (header + input) immediately, before the lazy
+        // chat-logic chunk loads, so the chrome is visible instantly and only
+        // the messages area spins until history arrives. mountChat() then finds
+        // these elements and wires them up (it no longer re-renders the shell).
+        boxContainer.innerHTML = CHAT_SHELL_HTML;
+        isLoaded = true;
+        const { mountChat } = await prefetchChatLogic();
+        chatHandle = await mountChat(boxContainer, initBtn, {
+          title: initBtn.dataset.title ?? '',
+          greeting: initBtn.dataset.greeting ?? '',
+          placeholder: initBtn.dataset.placeholder ?? '',
+          send: initBtn.dataset.send ?? '',
+          closeLabel: initBtn.dataset.closeLabel ?? '',
+          today: initBtn.dataset.today ?? '',
+          yesterday: initBtn.dataset.yesterday ?? '',
+          aiLabel: initBtn.dataset.aiLabel ?? '',
+          hostLabel: initBtn.dataset.hostLabel ?? '',
+          newMessages: initBtn.dataset.newMessages ?? '',
+          seeOriginal: initBtn.dataset.seeOriginal ?? 'See original',
+          seeTranslation: initBtn.dataset.seeTranslation ?? 'See translation',
+        }, initBtn.dataset.tenantId, initBtn.dataset.tenantName, closeChat);
+        // First open: land on the first unread message (or latest, since a
+        // brand-new session has no unread yet).
+        chatHandle?.scrollToFirstUnread();
+      }
+    };
+
+    initBtn.addEventListener('click', handleOpen);
+
+    // Public API so other on-page components (currently the landing page's
+    // intake wizard) can open the chat and post a composed message as the
+    // guest - e.g. a completed quiz result - instead of forcing a mailto:
+    // detour. open() mirrors a FAB click; send() lazily mounts the widget
+    // first if it was never opened, then routes through the same render +
+    // POST path as a typed message (so it lands in the tenant's Telegram
+    // admin thread identically).
+    (window as unknown as { fodypayChat?: { open: () => Promise<void>; send: (text: string) => Promise<void> } }).fodypayChat = {
+      open: async () => {
+        await handleOpen();
+      },
+      send: async (text: string) => {
+        await handleOpen(); // ensures the widget is mounted before sending
+        await chatHandle?.sendUserMessage(text);
+      },
+    };
+
+    // Tap-outside-to-close (mobile has no separate "click elsewhere" affordance
+    // once the FAB itself is hidden behind the open panel). Guards against
+    // closing on the very same tap that opened it via the `target === initBtn`
+    // check - that click is still bubbling to document when this listener
+    // also sees it, since display was already flipped to 'block' by then.
+    document.addEventListener('click', (e) => {
+      if (!isOpen) return;
+      const target = e.target as Node;
+      if (initBtn.contains(target) || boxContainer.contains(target)) return;
+      closeChat();
+    });
+  }
+</script>
+
+<script is:inline>
+  // Proactive nudge (site-wide): after a short fixed delay with the chat still
+  // closed, surface the hint bubble + a few FAB pulses. This widget renders on
+  // every page (landing + tenant sites), fires once per session, and is
+  // dismissible. Landing passes its own sales copy via the nudgeText prop;
+  // tenant sites use i.chat.nudge / the concierge default set above.
+  (function () {
+    var DELAY_MS = 5000;
+    var AUTO_HIDE_MS = 15000;
+    var DISMISS_KEY = 'fodypay_chat_nudge_dismissed';
+    var hideTimer;
+
+    // Permanent dismiss (X button or opening the chat) - sticks for the session.
+    function dismissPermanent() {
+      sessionStorage.setItem(DISMISS_KEY, '1');
+      var bubble = document.querySelector('#chat-root .chat-nudge-bubble');
+      if (bubble) bubble.classList.remove('is-visible');
+      var fab = document.getElementById('init-chat-btn');
+      if (fab) fab.classList.remove('is-nudging');
+      clearTimeout(hideTimer);
+    }
+
+    // Builds the bubble (unless already dismissed) and schedules the reveal.
+    // Re-run on every view-transition navigation so the hint reappears after an
+    // auto-hide until the visitor engages or dismisses it for the session.
+    function setup() {
+      clearTimeout(hideTimer);
+      if (sessionStorage.getItem(DISMISS_KEY)) return;
+
+      var fab = document.getElementById('init-chat-btn');
+      var chatRoot = document.getElementById('chat-root');
+      var text = fab ? fab.getAttribute('data-nudge') : null;
+      if (!fab || !chatRoot || !text) return;
+
+      // #chat-root is transition:persist'd - clear any bubble left by a previous
+      // page and reset the pulse so only ONE shows.
+      chatRoot.querySelectorAll('.chat-nudge-bubble').forEach(function (el) { el.remove(); });
+      fab.classList.remove('is-nudging');
+
+      var bubble = document.createElement('div');
+      bubble.className = 'chat-nudge-bubble';
+      bubble.setAttribute('role', 'status');
+      var closeBtn = document.createElement('button');
+      closeBtn.type = 'button';
+      closeBtn.className = 'chat-nudge-close';
+      closeBtn.setAttribute('aria-label', 'Dismiss');
+      closeBtn.textContent = '\u00d7';
+      var p = document.createElement('p');
+      p.style.margin = '0';
+      p.textContent = text;
+      bubble.append(closeBtn, p);
+      chatRoot.appendChild(bubble);
+
+      var shown = false;
+
+      function show() {
+        if (shown || fab.style.display === 'none' || !bubble.isConnected) return;
+        shown = true;
+        bubble.classList.add('is-visible');
+        fab.classList.add('is-nudging');
+        hideTimer = setTimeout(function () {
+          bubble.classList.remove('is-visible');
+          fab.classList.remove('is-nudging');
+        }, AUTO_HIDE_MS);
+      }
+
+      closeBtn.addEventListener('click', function (e) { e.stopPropagation(); dismissPermanent(); });
+      setTimeout(show, DELAY_MS);
+    }
+
+    // Opening the chat dismisses the nudge for good. Bound once (the FAB is
+    // transition:persist'd, so binding per setup would stack duplicate handlers).
+    var fab = document.getElementById('init-chat-btn');
+    if (fab && !fab.dataset.nudgeWired) {
+      fab.dataset.nudgeWired = 'true';
+      fab.addEventListener('click', dismissPermanent);
+    }
+
+    // Drop the bubble before the swap (it would otherwise persist with the
+    // transition:persist'd #chat-root) and cancel any pending auto-hide.
+    document.addEventListener('astro:before-swap', function () {
+      clearTimeout(hideTimer);
+      document.querySelectorAll('#chat-root .chat-nudge-bubble').forEach(function (el) { el.remove(); });
+      var f = document.getElementById('init-chat-btn');
+      if (f) f.classList.remove('is-nudging');
+    });
+
+    // Re-run on every navigation so the hint can reappear after an auto-hide.
+    document.addEventListener('astro:page-load', setup);
+    setup();
+  })();
+</script>
+
+<script is:inline define:vars={{ themeVars }}>
+  // #chat-root is transition:persist'd, so its inline --color-* vars stay frozen
+  // at whatever the FIRST page rendered. Re-apply the current page's theme on
+  // every view-transition navigation (and on load) so navigating from one site
+  // to another (e.g. the blue landing -> a teal hotel on localhost) doesn't
+  // leave the FAB with the previous page's color.
+  (function () {
+    function applyTheme() {
+      var root = document.getElementById('chat-root');
+      if (root) root.style.cssText = themeVars || '';
+    }
+    document.addEventListener('astro:page-load', applyTheme);
+    applyTheme();
+  })();
+</script>
+
+<script is:inline define:vars={{ chat }}>
+  // The chat strings freeze at the first page's language too (same reason as the
+  // theme vars above: #chat-root is transition:persist'd). Re-apply them on
+  // every view-transition navigation so the "Support chat" title, placeholder,
+  // close label, etc. switch language along with the rest of the page.
+  (function () {
+    function applyStrings() {
+      var btn = document.getElementById('init-chat-btn');
+      if (!btn) return;
+      btn.dataset.title = chat.title || '';
+      btn.dataset.greeting = chat.greeting || '';
+      btn.dataset.placeholder = chat.placeholder || '';
+      btn.dataset.send = chat.send || '';
+      btn.dataset.closeLabel = chat.closeLabel || '';
+      btn.dataset.today = chat.today || '';
+      btn.dataset.yesterday = chat.yesterday || '';
+      btn.dataset.aiLabel = chat.aiLabel || '';
+      btn.dataset.hostLabel = chat.hostLabel || '';
+      btn.dataset.newMessages = chat.newMessages || '';
+      btn.dataset.seeOriginal = chat.seeOriginal || '';
+      btn.dataset.seeTranslation = chat.seeTranslation || '';
+      btn.setAttribute('aria-label', chat.openLabel || '');
+      // If the panel is already mounted, refresh its static labels too (the
+      // message bubbles keep their original language, which is fine - only the
+      // fixed UI chrome needs to follow the new locale).
+      var titleLabel = document.getElementById('chat-title-label');
+      if (titleLabel) titleLabel.textContent = chat.title || '';
+      var input = document.getElementById('chat-input');
+      if (input) input.setAttribute('placeholder', chat.placeholder || '');
+      var closeBtn = document.getElementById('close-chat-btn');
+      if (closeBtn) closeBtn.setAttribute('aria-label', chat.closeLabel || '');
+    }
+    document.addEventListener('astro:page-load', applyStrings);
+    applyStrings();
+  })();
+</script>
+
+<script is:inline>
+  // Unlock Web Audio on the FIRST user gesture, so the chat's notification
+  // sound can play even though chat-logic.ts is lazy-loaded. On the landing
+  // page the intake wizard's clicks happen before chat-logic imports (its own
+  // unlock listener registers too late), leaving an AudioContext created
+  // outside a gesture and permanently suspended. Creating it here on the first
+  // pointerdown/keydown sidesteps that; chat-logic.ts's ensureAudioContext()
+  // reuses this context via window.__fodypayAudioCtx.
+  (function () {
+    var Ctor = window.AudioContext || window.webkitAudioContext;
+    if (!Ctor) return;
+    var ctx = null;
+    var unlock = function () {
+      try {
+        if (!ctx) ctx = new Ctor();
+        if (ctx && ctx.state === 'suspended') ctx.resume();
+        window.__fodypayAudioCtx = ctx;
+      } catch (e) { /* noop */ }
+    };
+    document.addEventListener('pointerdown', unlock, { once: true });
+    document.addEventListener('keydown', unlock, { once: true });
+  })();
+</script>

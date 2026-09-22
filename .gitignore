@@ -1,32 +1,31 @@
 # build output
 dist/
-.output/
-.json/
-.vercel
+
+# generated types
+.astro/
+
+# cloudflare wrangler state
+.wrangler/
 
 # dependencies
 node_modules/
+
+# npm lockfile (project uses pnpm — see pnpm-lock.yaml)
+package-lock.json
 
 # logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-package-lock.json
-
 
 # environment variables
 .env
-.env.production
+.env.*
+!.env.example
 
-# macOS-specific files
+# macOS
 .DS_Store
 
-# internal planning docs
-TODO-legal.md
-
-# ignore .astro directory
-.astro
-.claude
-# ide
-.idea/
+# VS Code
+.vscode/

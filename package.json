@@ -1,19 +1,12 @@
 {
-  "name": "automark-astro",
-  "version": "1.0.1",
-  "description": "Automark is a marketing and sales automation platform",
-  "author": "Themefisher",
-  "license": "MIT",
-  "packageManager": "pnpm@11.9.0",
+  "name": "fodypay-com",
   "type": "module",
+  "version": "0.0.1",
   "scripts": {
-    "dev": "concurrently \"node scripts/themeGenerator.js --watch\" \"astro dev\"",
-    "build": "node scripts/themeGenerator.js && astro build",
+    "dev": "astro dev",
+    "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check",
-    "format": "prettier -w ./src",
-    "deploy:cf-workers": "npm run build && wrangler deploy",
-    "preview:cf-workers": "npm run build && wrangler dev"
+    "astro": "astro"
   },
   "dependencies": {
     "@astrojs/check": "0.9.9",
@@ -54,9 +47,5 @@
     "tailwindcss": "^4.3.1",
     "typescript": "^6.0.3",
     "wrangler": "^4.105.0"
-  },
-  "overrides": {
-    "astro": "$astro",
-    "typescript": "$typescript"
   }
 }
