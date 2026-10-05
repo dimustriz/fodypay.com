@@ -40,7 +40,11 @@ function ensureAudioContext(): AudioContext | null {
 // Browsers suspend audio until a user gesture happens anywhere on the page;
 // prime the context on the first one so a later notification isn't silently dropped.
 if (typeof document !== "undefined") {
-  const unlockAudio = () => ensureAudioContext();
+  const unlockAudio = () => {
+    const c = ensureAudioContext();
+    // Release focus immediately — we only needed to unlock the context.
+    if (c) setTimeout(() => { try { if (c.state === "running") c.suspend(); } catch (e) {} }, 100);
+  };
   document.addEventListener("pointerdown", unlockAudio, { once: true });
   document.addEventListener("keydown", unlockAudio, { once: true });
 }
@@ -81,6 +85,8 @@ function playNotificationSound() {
       osc.start(start);
       osc.stop(start + 0.25);
     });
+    // Release audio focus once the chime finishes so background music resumes.
+    setTimeout(() => { try { if (ctx.state === "running") ctx.suspend(); } catch (e) {} }, 450);
   } catch (e) {
     console.error("Failed to play chat notification sound:", e);
   }

@@ -510,6 +510,8 @@ const nudgeText =
         if (!ctx) ctx = new Ctor();
         if (ctx && ctx.state === 'suspended') ctx.resume();
         window.__fodypayAudioCtx = ctx;
+        // Release focus immediately — we only needed to unlock the context.
+        setTimeout(function () { try { if (ctx && ctx.state === 'running') ctx.suspend(); } catch (e) {} }, 100);
       } catch (e) { /* noop */ }
     };
     document.addEventListener('pointerdown', unlock, { once: true });
