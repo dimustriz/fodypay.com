@@ -1,6 +1,5 @@
 ---
-import ChatWidget from '@/components/ChatWidget.astro';
-import { chatStrings } from '@/i18n/chat';
+import FodyChatWidget from '@/components/FodyChatWidget.astro';
 import type { Lang } from '@/i18n/ui';
 
 interface Props {
@@ -33,11 +32,7 @@ const {
   </head>
   <body>
     <slot />
-    <ChatWidget
-      i={{ chat: chatStrings[lang] }}
-      tenantId="fodypay"
-      tenantName="FodyPay"
-    />
+    <FodyChatWidget lang={lang} />
   </body>
 </html>
 

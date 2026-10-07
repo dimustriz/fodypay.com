@@ -1,10 +1,8 @@
-// Static product knowledge for the FodyPay AI concierge.
-//
-// rent.wf syncs per-tenant facts from Google Sheets into D1; FodyPay is a
-// single product, so its facts are authored here and bundled into the Worker at
-// deploy time instead. The model reads prose (not a schema), so restate the key
-// facts directly. Keep this in sync with src/i18n/ui.ts and the landing page by
-// hand whenever product copy, pricing, or availability change.
+// Static product knowledge for the FodyPay AI concierge (moved here from
+// worker/src/knowledge.ts so the frontend can pass it as `context` to FodyChat).
+// The model reads prose (not a schema), so restate the key facts directly.
+// Keep in sync with src/i18n/ui.ts and the landing page by hand whenever
+// product copy, pricing, or availability change.
 
 export const FODYPAY_TENANT_ID = "fodypay";
 export const FODYPAY_TENANT_NAME = "FodyPay";
