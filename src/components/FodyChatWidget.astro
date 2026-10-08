@@ -24,6 +24,12 @@ const config = {
   placeholder: chat.placeholder,
   hostLabel: chat.hostLabel,
   nudge: chat.nudge,
+  // Show the invitation proactively so it's clearly visible on the demo:
+  // min 1.5s before it can appear, trigger after a 25% scroll, or fall back
+  // to an 8s dwell (short pages that don't scroll).
+  nudgeDelay: 1500,
+  nudgeScroll: 0.25,
+  nudgeDwell: 8000,
   // FodyPay is always dark, so pass a flat theme object (no light/dark split).
   theme: {
     '--chat-primary': '#ff8c00',
