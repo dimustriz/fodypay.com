@@ -30,18 +30,37 @@ const config = {
   nudgeDelay: 1500,
   nudgeScroll: 0.25,
   nudgeDwell: 8000,
-  // FodyPay is always dark, so pass a flat theme object (no light/dark split).
+  // Split theme: the engine picks light/dark from data-theme + system preference
+  // and re-applies it on the `fodychat:themechange` event (see script below).
   theme: {
-    '--chat-primary': '#ff8c00',
-    '--chat-surface': '#151820',
-    '--chat-text': '#e6edf3',
-    '--chat-bg': '#0d0f14',
-    '--chat-border': 'rgba(255, 255, 255, 0.12)',
-    '--chat-header-bg': 'rgba(255, 140, 0, 0.14)',
-    '--chat-header-text': '#ffb347',
-    '--chat-user-bg': 'rgba(255, 140, 0, 0.22)',
-    '--chat-bot-bg': 'rgba(255, 255, 255, 0.08)',
-    '--chat-input-bg': '#151820',
+    light: {
+      '--chat-primary': '#ff8c00',
+      '--chat-on-primary': '#ffffff',
+      '--chat-surface': '#ffffff',
+      '--chat-text': '#111827',
+      '--chat-bg': '#faf9f7',
+      '--chat-border': '#e5e3de',
+      '--chat-header-bg': 'rgba(255, 140, 0, 0.12)',
+      '--chat-header-text': '#111827',
+      '--chat-user-bg': 'rgba(255, 140, 0, 0.16)',
+      '--chat-bot-bg': '#f2f1ee',
+      '--chat-input-bg': '#ffffff',
+      '--chat-muted': '#6b7280',
+    },
+    dark: {
+      '--chat-primary': '#ff8c00',
+      '--chat-on-primary': '#ffffff',
+      '--chat-surface': '#1e293b',
+      '--chat-text': '#f1f5f9',
+      '--chat-bg': '#0f172a',
+      '--chat-border': '#334155',
+      '--chat-header-bg': 'rgba(255, 140, 0, 0.14)',
+      '--chat-header-text': '#ffb347',
+      '--chat-user-bg': 'rgba(255, 140, 0, 0.22)',
+      '--chat-bot-bg': 'rgba(255, 255, 255, 0.08)',
+      '--chat-input-bg': '#1e293b',
+      '--chat-muted': '#94a3b8',
+    },
   },
   payload: { context: FODYPAY_CONTEXT, tenantId: FODYPAY_TENANT_ID, lang },
 };
@@ -72,34 +91,16 @@ const config = {
     ensureMounted();
     var cfg = readFodychatConfig();
     if (!cfg) return;
-    var fab = document.getElementById('chat-engine-fab');
     var panel = document.getElementById('chat-engine-panel');
-    if (!fab || !panel) return;
-    if (cfg.theme) for (var k in cfg.theme) { fab.style.setProperty(k, cfg.theme[k]); panel.style.setProperty(k, cfg.theme[k]); }
+    if (!panel) return;
     var titleSpan = panel.querySelector('#chat-engine-header span span');
     if (titleSpan && cfg.title) titleSpan.textContent = cfg.title;
+    // Ask the engine to re-apply its light/dark theme from data-theme + system.
+    document.dispatchEvent(new Event('fodychat:themechange'));
   });
 </script>
 
 <style is:global>
-  /* FodyPay brand tokens for the external chat engine. The engine reads these
-     custom properties (e.g. var(--chat-primary, #6366f1)), so defining them on
-     the widget root makes the FAB (and panel) inherit FodyPay orange instead of
-     the engine's default indigo. */
-  #fodychat-root {
-    --chat-primary: #ff8c00;
-    --chat-on-primary: #ffffff;
-    --chat-surface: #151820;
-    --chat-text: #e6edf3;
-    --chat-bg: #0d0f14;
-    --chat-border: rgba(255, 255, 255, 0.12);
-    --chat-header-bg: rgba(255, 140, 0, 0.14);
-    --chat-header-text: #ffb347;
-    --chat-user-bg: rgba(255, 140, 0, 0.22);
-    --chat-bot-bg: rgba(255, 255, 255, 0.08);
-    --chat-input-bg: #151820;
-  }
-
   #chat-engine-fab {
     position: fixed;
     bottom: 24px;
@@ -119,10 +120,13 @@ const config = {
   }
 
   /* Higher specificity than the engine's injected #chat-engine-fab rules
-     (which apply a 65% color-mix), so the solid brand orange always wins. */
+     (which apply a 65% color-mix and a 20px corner offset), so the solid
+     brand orange and the 24px position always win. */
   #fodychat-root #chat-engine-fab {
     background: #ff8c00;
     opacity: 1;
+    bottom: 24px;
+    right: 24px;
   }
   #fodychat-root #chat-engine-fab:hover,
   #fodychat-root #chat-engine-fab:focus-visible {

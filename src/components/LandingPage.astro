@@ -7,6 +7,18 @@ const t = useTranslations(lang);
 const currentLangName = langNames[lang];
 ---
 
+<script is:inline>
+  // Apply the saved theme early to avoid a flash of the wrong colors.
+  (function () {
+    try {
+      var t = localStorage.getItem('fp-theme');
+      if (t === 'light' || t === 'dark') {
+        document.documentElement.setAttribute('data-theme', t);
+      }
+    } catch (e) {}
+  })();
+</script>
+
 <!-- Nav -->
 <header class="nav">
   <div class="nav-inner">
@@ -41,8 +53,15 @@ const currentLangName = langNames[lang];
         </div>
       </div>
 
-      <!-- Theme toggle -->
-      <button class="theme-toggle" aria-label={t('theme.dark')}>
+      <!-- Theme toggle (auto → light → dark) -->
+      <button
+        class="theme-toggle"
+        data-label-auto={t('theme.auto')}
+        data-label-light={t('theme.light')}
+        data-label-dark={t('theme.dark')}
+        aria-label={t('theme.light')}
+      >
+        <span class="icon-auto">&#9680;</span>
         <span class="icon-sun">&#9788;</span>
         <span class="icon-moon">&#9790;</span>
       </button>
@@ -291,6 +310,7 @@ const currentLangName = langNames[lang];
     --input-bg: #ffffff;
     --radius: 14px;
     --max: 1120px;
+    color-scheme: light;
   }
   [data-theme="dark"] {
     --bg: #0f172a;
@@ -301,6 +321,22 @@ const currentLangName = langNames[lang];
     --border: #334155;
     --nav-bg: rgba(15,23,42,0.92);
     --input-bg: #1e293b;
+    color-scheme: dark;
+  }
+
+  /* Auto: follow the OS preference when no explicit light/dark is set */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]):not([data-theme="dark"]) {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --card-bg: #1e293b;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border: #334155;
+      --nav-bg: rgba(15,23,42,0.92);
+      --input-bg: #1e293b;
+      color-scheme: dark;
+    }
   }
 
   body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; margin: 0; }
@@ -365,8 +401,11 @@ const currentLangName = langNames[lang];
     flex-shrink: 0;
   }
   .theme-toggle:hover { color: var(--orange); border-color: var(--orange); }
-  .icon-moon { display: none; }
-  [data-theme="dark"] .icon-sun { display: none; }
+  .icon-sun, .icon-moon { display: none; }
+  .icon-auto { display: inline; }
+  [data-theme="light"] .icon-auto { display: none; }
+  [data-theme="light"] .icon-sun { display: inline; }
+  [data-theme="dark"] .icon-auto { display: none; }
   [data-theme="dark"] .icon-moon { display: inline; }
 
   /* Lang section inside hamburger menu - hidden on desktop */
@@ -651,13 +690,37 @@ const currentLangName = langNames[lang];
 </style>
 
 <script>
-  // Theme toggle
+  // Theme toggle (auto → light → dark)
   const themeBtn = document.querySelector('.theme-toggle') as HTMLButtonElement | null;
-  themeBtn?.addEventListener('click', () => {
-    const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', next);
+  const THEME_ORDER = ['auto', 'light', 'dark'];
+
+  const themeCurrent = (): string => {
+    const t = document.documentElement.getAttribute('data-theme');
+    return t === 'light' || t === 'dark' ? t : 'auto';
+  };
+
+  const themeSetLabel = (current: string) => {
+    const next = THEME_ORDER[(THEME_ORDER.indexOf(current) + 1) % THEME_ORDER.length];
+    const cap = next.charAt(0).toUpperCase() + next.slice(1);
+    const label = themeBtn?.dataset['label' + cap];
+    if (label) themeBtn?.setAttribute('aria-label', label);
+  };
+
+  const themeApply = (next: string) => {
+    if (next === 'auto') document.documentElement.removeAttribute('data-theme');
+    else document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('fp-theme', next);
+    themeSetLabel(next);
+    // Keep the chat widget theme in sync with the site theme.
+    document.dispatchEvent(new Event('fodychat:themechange'));
+  };
+
+  themeBtn?.addEventListener('click', () => {
+    themeApply(THEME_ORDER[(THEME_ORDER.indexOf(themeCurrent()) + 1) % THEME_ORDER.length]);
   });
+
+  // Sync the button label with the restored theme
+  themeSetLabel(themeCurrent());
 
   // Hamburger
   const burger = document.querySelector('.burger') as HTMLButtonElement | null;
