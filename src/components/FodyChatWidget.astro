@@ -82,6 +82,24 @@ const config = {
 </script>
 
 <style is:global>
+  /* FodyPay brand tokens for the external chat engine. The engine reads these
+     custom properties (e.g. var(--chat-primary, #6366f1)), so defining them on
+     the widget root makes the FAB (and panel) inherit FodyPay orange instead of
+     the engine's default indigo. */
+  #fodychat-root {
+    --chat-primary: #ff8c00;
+    --chat-on-primary: #ffffff;
+    --chat-surface: #151820;
+    --chat-text: #e6edf3;
+    --chat-bg: #0d0f14;
+    --chat-border: rgba(255, 255, 255, 0.12);
+    --chat-header-bg: rgba(255, 140, 0, 0.14);
+    --chat-header-text: #ffb347;
+    --chat-user-bg: rgba(255, 140, 0, 0.22);
+    --chat-bot-bg: rgba(255, 255, 255, 0.08);
+    --chat-input-bg: #151820;
+  }
+
   #chat-engine-fab {
     position: fixed;
     bottom: 24px;
@@ -93,16 +111,24 @@ const config = {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #ff8c00;
     color: #fff;
     z-index: 2147483000;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-    opacity: 0.65;
     cursor: pointer;
-    transition: opacity 0.2s;
+    transition: background-color 0.2s, opacity 0.2s;
   }
-  #chat-engine-fab:hover,
-  #chat-engine-fab:focus-visible { opacity: 1; }
+
+  /* Higher specificity than the engine's injected #chat-engine-fab rules
+     (which apply a 65% color-mix), so the solid brand orange always wins. */
+  #fodychat-root #chat-engine-fab {
+    background: #ff8c00;
+    opacity: 1;
+  }
+  #fodychat-root #chat-engine-fab:hover,
+  #fodychat-root #chat-engine-fab:focus-visible {
+    background: #ff9f1c;
+  }
+
   #chat-engine-badge {
     position: absolute;
     top: -3px;
