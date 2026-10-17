@@ -20,6 +20,17 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script is:inline>
+      // Apply the saved theme before first paint to avoid a flash of wrong colors.
+      (function () {
+        try {
+          var t = localStorage.getItem('fp-theme');
+          if (t === 'light' || t === 'dark') {
+            document.documentElement.setAttribute('data-theme', t);
+          }
+        } catch (e) {}
+      })();
+    </script>
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
@@ -38,33 +49,66 @@ const {
 
 <style is:global>
   :root {
+    /* Brand */
     --primary: #ff8c00;
     --primary-dark: #d45e00;
     --primary-light: #ffb347;
+    --orange: #ff8c00;
+    --orange-dark: #d45e00;
     --success: #00c896;
     --danger: #ff3b30;
     --warning: #ffc837;
 
-    --bg: #0d0f14;
-    --surface: #151820;
-    --elevated: #1d2030;
-    --text: #ffffff;
-    --text-secondary: #7e8299;
-    --text-tertiary: #3d4155;
-    --divider: #1d2030;
+    /* Light theme (default) */
+    --bg: #faf9f7;
+    --surface: #f2f1ee;
+    --card-bg: #ffffff;
+    --elevated: #ffffff;
+    --text: #111827;
+    --text-secondary: #6b7280;
+    --text-muted: #6b7280;
+    --text-tertiary: #9ca3af;
+    --divider: #e5e3de;
+    --border: #e5e3de;
+    --nav-bg: rgba(250, 249, 247, 0.9);
+    --input-bg: #ffffff;
 
-    /* Mapped onto the chat widget's own design tokens so it inherits the
-       FodyPay dark theme. The widget otherwise defaults to a light/blue palette
-       and would blend into the page and render light-grey message bubbles. */
-    --color-primary: var(--primary);
-    --primary-rgb: 255, 140, 0;
-    --color-surface: var(--elevated);            /* #1d2030 — panel lifts off the page */
-    --color-surface-border: var(--text-tertiary); /* #3d4155 — visible panel border */
-    --color-text: var(--text);                   /* #ffffff */
-    --color-bg: var(--surface);                  /* #151820 — input row */
-    --color-pill-bg: #2a2f45;                    /* bot bubble — lighter than the panel */
-    --color-pill-text: #d1d5db;                  /* bubble / label text */
-    --color-muted: var(--text-secondary);        /* nudge close */
+    color-scheme: light;
+  }
+
+  [data-theme="dark"] {
+    --bg: #0f172a;
+    --surface: #1e293b;
+    --card-bg: #1e293b;
+    --elevated: #1e293b;
+    --text: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #94a3b8;
+    --text-tertiary: #64748b;
+    --divider: #334155;
+    --border: #334155;
+    --nav-bg: rgba(15, 23, 42, 0.92);
+    --input-bg: #1e293b;
+    color-scheme: dark;
+  }
+
+  /* Auto: follow the OS preference when no explicit light/dark is set */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]):not([data-theme="dark"]) {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --card-bg: #1e293b;
+      --elevated: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #94a3b8;
+      --text-tertiary: #64748b;
+      --divider: #334155;
+      --border: #334155;
+      --nav-bg: rgba(15, 23, 42, 0.92);
+      --input-bg: #1e293b;
+      color-scheme: dark;
+    }
   }
 
   *, *::before, *::after {
@@ -102,5 +146,45 @@ const {
   button {
     font-family: inherit;
     cursor: pointer;
+  }
+
+  /* Theme toggle (shared: used on the landing and the legal/support pages) */
+  .theme-toggle {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    transition: border-color 0.2s, color 0.2s;
+    flex-shrink: 0;
+  }
+  .theme-toggle:hover {
+    color: var(--orange);
+    border-color: var(--orange);
+  }
+  .icon-sun,
+  .icon-moon {
+    display: none;
+  }
+  .icon-auto {
+    display: inline;
+  }
+  [data-theme="light"] .icon-auto {
+    display: none;
+  }
+  [data-theme="light"] .icon-sun {
+    display: inline;
+  }
+  [data-theme="dark"] .icon-auto {
+    display: none;
+  }
+  [data-theme="dark"] .icon-moon {
+    display: inline;
   }
 </style>

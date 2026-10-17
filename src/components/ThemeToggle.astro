@@ -1,0 +1,58 @@
+---
+interface Props {
+  autoLabel?: string;
+  lightLabel?: string;
+  darkLabel?: string;
+}
+
+const {
+  autoLabel = 'Automatic',
+  lightLabel = 'Light',
+  darkLabel = 'Dark',
+} = Astro.props;
+---
+
+<button
+  type="button"
+  class="theme-toggle"
+  data-label-auto={autoLabel}
+  data-label-light={lightLabel}
+  data-label-dark={darkLabel}
+  aria-label={lightLabel}
+>
+  <span class="icon-auto">&#9680;</span>
+  <span class="icon-sun">&#9788;</span>
+  <span class="icon-moon">&#9790;</span>
+</button>
+
+<script>
+  const btn = document.querySelector('.theme-toggle') as HTMLButtonElement | null;
+  const ORDER = ['auto', 'light', 'dark'];
+
+  const current = (): string => {
+    const t = document.documentElement.getAttribute('data-theme');
+    return t === 'light' || t === 'dark' ? t : 'auto';
+  };
+
+  const setLabel = (cur: string) => {
+    const next = ORDER[(ORDER.indexOf(cur) + 1) % ORDER.length];
+    const cap = next.charAt(0).toUpperCase() + next.slice(1);
+    const label = btn?.dataset['label' + cap];
+    if (label) btn?.setAttribute('aria-label', label);
+  };
+
+  const apply = (next: string) => {
+    if (next === 'auto') document.documentElement.removeAttribute('data-theme');
+    else document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('fp-theme', next);
+    setLabel(next);
+    // Keep the chat widget theme in sync with the site theme.
+    document.dispatchEvent(new Event('fodychat:themechange'));
+  };
+
+  btn?.addEventListener('click', () => {
+    apply(ORDER[(ORDER.indexOf(current()) + 1) % ORDER.length]);
+  });
+
+  setLabel(current());
+</script>

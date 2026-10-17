@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
 ---
 
 <Layout
@@ -9,6 +10,7 @@ import Layout from '../layouts/Layout.astro';
   <header class="nav">
     <div class="nav-inner">
       <a href="/" class="logo">Fody<span>Pay</span></a>
+      <div class="nav-actions"><ThemeToggle /></div>
     </div>
   </header>
 
@@ -91,11 +93,6 @@ import Layout from '../layouts/Layout.astro';
 
 <style>
   :root {
-    --orange: #ff8c00;
-    --bg: #faf9f7;
-    --text: #111827;
-    --text-muted: #6b7280;
-    --border: #e5e3de;
     --max: 800px;
   }
   body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; }
@@ -105,6 +102,7 @@ import Layout from '../layouts/Layout.astro';
   .nav-inner { max-width: var(--max); margin: 0 auto; padding: 0 24px; height: 60px; display: flex; align-items: center; }
   .logo { font-size: 1.2rem; font-weight: 800; color: var(--text); }
   .logo span { color: var(--orange); }
+  .nav-actions { margin-left: auto; }
 
   .support-page { padding: 60px 0 80px; }
   h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 8px; }
