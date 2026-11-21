@@ -1,0 +1,26 @@
+# FodyPay
+
+> FodyPay is a virtual card for everything else: a second card that works alongside any bank, accepted wherever Visa is (150+ countries). The product is in Closed Beta; visitors can join the waitlist and check availability for their region.
+
+## Main pages
+
+- [Home (English)](https://fodypay.com/): Product overview, features, how it works, and waitlist signup.
+- [Deutsch](https://fodypay.com/de/): Homepage in German.
+- [Русский](https://fodypay.com/ru/): Homepage in Russian.
+- [Українська](https://fodypay.com/uk/): Homepage in Ukrainian.
+- [Español](https://fodypay.com/es/): Homepage in Spanish.
+- [Italiano](https://fodypay.com/it/): Homepage in Italian.
+- [Français](https://fodypay.com/fr/): Homepage in French.
+
+## Legal and support
+
+- [Support](https://fodypay.com/support): Help and contact information (support@fodypay.com).
+- [Privacy Policy](https://fodypay.com/privacy): How personal data is handled (privacy@fodypay.com).
+- [Terms of Service](https://fodypay.com/terms): Terms of use (legal@fodypay.com).
+
+## Key facts
+
+- Instant virtual Visa card; works with Apple Pay and Google Pay.
+- Top up from an existing bank account or debit card, with no minimums.
+- Sign-up requires identity verification with a photo ID.
+- Designed as a secondary card for travel, online shopping, subscriptions, freelancers, and nomads, not as a replacement bank account.

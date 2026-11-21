@@ -2,3 +2,5 @@ User-agent: *
 Allow: /
 
 Disallow: /api/*
+
+Sitemap: https://fodypay.com/sitemap-index.xml
